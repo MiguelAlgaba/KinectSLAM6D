@@ -1,0 +1,5 @@
+(1)Generate the vehicle path with RawLogViewer
+
+(2)Execute with Octave or Matlab
+
+>> plot_odometry GT_path_vehicle.mat

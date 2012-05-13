@@ -1,0 +1,79 @@
+\hypertarget{class_point_cloud_downsampler}{
+\section{PointCloudDownsampler Class Reference}
+\label{class_point_cloud_downsampler}\index{PointCloudDownsampler@{PointCloudDownsampler}}
+}
+
+
+{\ttfamily \#include $<$PointCloudDownsampler.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_point_cloud_downsampler_a518e890b357eed74601e0fc940334343}{PointCloudDownsampler} (const int=8)
+\item 
+void \hyperlink{class_point_cloud_downsampler_aa59d5affe32288f96dd2ac1ff46aab35}{setDownsamplingStep} (const int)
+\item 
+void \hyperlink{class_point_cloud_downsampler_a0c868ad7dfe0c4e56b083312e91816af}{downsamplePointCloud} (pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&pointCloudPtr, pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&downsampledPointCloudPtr)
+\item 
+void \hyperlink{class_point_cloud_downsampler_ab47d1718a76090e2bc0b2d0a203f8e36}{downsamplePointCloudColor} (pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&, pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_point_cloud_downsampler_a74b48c9180a5d63ab550e26f07c24df0}{
+int {\bfseries downsamplingStep}}
+\label{class_point_cloud_downsampler_a74b48c9180a5d63ab550e26f07c24df0}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class implements a fast and straightforward algorithm to downsample organized 3D point clouds. The algorithm takes the median point of a square region (downsamplingStep x downsamplingStep) of 3D points to mitigate the data noise. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_point_cloud_downsampler_a518e890b357eed74601e0fc940334343}{
+\index{PointCloudDownsampler@{PointCloudDownsampler}!PointCloudDownsampler@{PointCloudDownsampler}}
+\index{PointCloudDownsampler@{PointCloudDownsampler}!PointCloudDownsampler@{PointCloudDownsampler}}
+\subsubsection[{PointCloudDownsampler}]{\setlength{\rightskip}{0pt plus 5cm}PointCloudDownsampler::PointCloudDownsampler (
+\begin{DoxyParamCaption}
+\item[{const int}]{ = {\ttfamily 8}}
+\end{DoxyParamCaption}
+)}}
+\label{class_point_cloud_downsampler_a518e890b357eed74601e0fc940334343}
+Constructor of an instance of \hyperlink{class_point_cloud_downsampler}{PointCloudDownsampler} given the downsamplingStep 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_point_cloud_downsampler_a0c868ad7dfe0c4e56b083312e91816af}{
+\index{PointCloudDownsampler@{PointCloudDownsampler}!downsamplePointCloud@{downsamplePointCloud}}
+\index{downsamplePointCloud@{downsamplePointCloud}!PointCloudDownsampler@{PointCloudDownsampler}}
+\subsubsection[{downsamplePointCloud}]{\setlength{\rightskip}{0pt plus 5cm}void PointCloudDownsampler::downsamplePointCloud (
+\begin{DoxyParamCaption}
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{pointCloudPtr, }
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{downsampledPointCloudPtr}
+\end{DoxyParamCaption}
+)}}
+\label{class_point_cloud_downsampler_a0c868ad7dfe0c4e56b083312e91816af}
+Downsamples the point cloud given by pointCloudPtr skiping the RGB information. The resulting downsampled point cloud is returned in downsampledPointCloudPtr. \hypertarget{class_point_cloud_downsampler_ab47d1718a76090e2bc0b2d0a203f8e36}{
+\index{PointCloudDownsampler@{PointCloudDownsampler}!downsamplePointCloudColor@{downsamplePointCloudColor}}
+\index{downsamplePointCloudColor@{downsamplePointCloudColor}!PointCloudDownsampler@{PointCloudDownsampler}}
+\subsubsection[{downsamplePointCloudColor}]{\setlength{\rightskip}{0pt plus 5cm}void PointCloudDownsampler::downsamplePointCloudColor (
+\begin{DoxyParamCaption}
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{, }
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{}
+\end{DoxyParamCaption}
+)}}
+\label{class_point_cloud_downsampler_ab47d1718a76090e2bc0b2d0a203f8e36}
+Downsamples the point cloud given by pointCloudPtr. The color information will be computed by taking the median RGB value in the square region. The resulting downsampled point cloud is returned in downsampledPointCloudPtr. \hypertarget{class_point_cloud_downsampler_aa59d5affe32288f96dd2ac1ff46aab35}{
+\index{PointCloudDownsampler@{PointCloudDownsampler}!setDownsamplingStep@{setDownsamplingStep}}
+\index{setDownsamplingStep@{setDownsamplingStep}!PointCloudDownsampler@{PointCloudDownsampler}}
+\subsubsection[{setDownsamplingStep}]{\setlength{\rightskip}{0pt plus 5cm}void PointCloudDownsampler::setDownsamplingStep (
+\begin{DoxyParamCaption}
+\item[{const int}]{}
+\end{DoxyParamCaption}
+)}}
+\label{class_point_cloud_downsampler_aa59d5affe32288f96dd2ac1ff46aab35}
+Sets the desired downsamplingStep to the given value 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+PointCloudDownsampler.h\end{DoxyCompactItemize}

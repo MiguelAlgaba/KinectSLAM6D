@@ -1,0 +1,73 @@
+\hypertarget{class_i_c_p_pose_refiner___stanford_g_i_c_p}{
+\section{ICPPoseRefiner\_\-StanfordGICP Class Reference}
+\label{class_i_c_p_pose_refiner___stanford_g_i_c_p}\index{ICPPoseRefiner\_\-StanfordGICP@{ICPPoseRefiner\_\-StanfordGICP}}
+}
+
+
+{\ttfamily \#include $<$ICPPoseRefiner\_\-StanfordGICP.h$>$}
+
+Inheritance diagram for ICPPoseRefiner\_\-StanfordGICP:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_i_c_p_pose_refiner___stanford_g_i_c_p}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_i_c_p_pose_refiner___stanford_g_i_c_p_a943bad0b2578cf87723ce968e8c52580}{refinePose} (\hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&frame1, \hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&frame2, Eigen::Matrix4f \&H)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_c_p_pose_refiner___stanford_g_i_c_p_a89681c536d6d4907cdaa8ab0d30f5728}{
+bool {\bfseries debug}}
+\label{class_i_c_p_pose_refiner___stanford_g_i_c_p_a89681c536d6d4907cdaa8ab0d30f5728}
+
+\item 
+\hypertarget{class_i_c_p_pose_refiner___stanford_g_i_c_p_a8e42ad076b05c36552d0e704ee156976}{
+double {\bfseries gicp\_\-epsilon}}
+\label{class_i_c_p_pose_refiner___stanford_g_i_c_p_a8e42ad076b05c36552d0e704ee156976}
+
+\item 
+\hypertarget{class_i_c_p_pose_refiner___stanford_g_i_c_p_ac4efce272acf7630f58e60d3b6629cea}{
+double {\bfseries max\_\-distance}}
+\label{class_i_c_p_pose_refiner___stanford_g_i_c_p_ac4efce272acf7630f58e60d3b6629cea}
+
+\item 
+\hypertarget{class_i_c_p_pose_refiner___stanford_g_i_c_p_a415c953f2b86d6b4433322d4ac57bf3a}{
+GICPPointSet {\bfseries gicpPointSet1}}
+\label{class_i_c_p_pose_refiner___stanford_g_i_c_p_a415c953f2b86d6b4433322d4ac57bf3a}
+
+\item 
+\hypertarget{class_i_c_p_pose_refiner___stanford_g_i_c_p_a894be0011b387374fa6f50ce5706d81e}{
+GICPPointSet {\bfseries gicpPointSet2}}
+\label{class_i_c_p_pose_refiner___stanford_g_i_c_p_a894be0011b387374fa6f50ce5706d81e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class encapsulates the functionality of a 3D rigid transformation refiner using the Generalized ICP algorithm implemented in the Stanford GICP library. The source code of the GICP library could be found here: \href{http://www.stanford.edu/~avsegal/generalized_icp.html}{\tt http://www.stanford.edu/$\sim$avsegal/generalized\_\-icp.html} 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_i_c_p_pose_refiner___stanford_g_i_c_p_a943bad0b2578cf87723ce968e8c52580}{
+\index{ICPPoseRefiner\_\-StanfordGICP@{ICPPoseRefiner\_\-StanfordGICP}!refinePose@{refinePose}}
+\index{refinePose@{refinePose}!ICPPoseRefiner_StanfordGICP@{ICPPoseRefiner\_\-StanfordGICP}}
+\subsubsection[{refinePose}]{\setlength{\rightskip}{0pt plus 5cm}void ICPPoseRefiner\_\-StanfordGICP::refinePose (
+\begin{DoxyParamCaption}
+\item[{{\bf FrameRGBD} \&}]{frame1, }
+\item[{{\bf FrameRGBD} \&}]{frame2, }
+\item[{Eigen::Matrix4f \&}]{H}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_i_c_p_pose_refiner___stanford_g_i_c_p_a943bad0b2578cf87723ce968e8c52580}
+This method refines the 3D rigid transformation between frame1 and frame2 giving H as an initial guess. The refined rigid transformation will be returned in H. 
+
+Implements \hyperlink{class_i_c_p_pose_refiner_ad359ab15346aa343a51bd8ae71cd3ea1}{ICPPoseRefiner}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+ICPPoseRefiner\_\-StanfordGICP.h\end{DoxyCompactItemize}

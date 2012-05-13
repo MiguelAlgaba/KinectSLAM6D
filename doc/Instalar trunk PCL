@@ -1,0 +1,25 @@
+- Los siguientes comandos instalan la PCL 1.1 con sus dependencias. Las dependencias se instalan en "usr/include"
+
+sudo add-apt-repository ppa:v-launchpad-jochen-sprickerhof-de/pcl
+sudo apt-get update
+sudo apt-get install libpcl-1.1-dev
+
+- Mostrar paquetes instalados en el sistema y volcarlos en un fichero
+
+dpkg --list >> paquetes.txt
+
+- Borrar los paquetes de la librería PCL. Este comando borra los paquetes de la PCL solamente, no borra sus dependencias (Eigen, Boost, Flann, CMinpack, VTK).
+
+sudo apt-get --purge remove libpcl-1.1
+
+- Para descargar la versión del trunk: svn co http://svn.pointclouds.org/pcl/trunk
+Visitar http://www.pointclouds.org/downloads/source.html para más información
+
+- Si queremos instalar una nueva versión compilada por nosotros e instalada con "sudo make install", debemos desinstalarla primero haciendo "sudo make uninstall" en el directorio PC_build.
+
+- El siguiente comando instala la versión compilada del trunk de la PCL
+
+cd home/miguel/Libs/PCL_build
+sudo make install
+
+NOTA: Para que se ejecute correctamente mi código antiguo, he tenido que recompilar la MRPT

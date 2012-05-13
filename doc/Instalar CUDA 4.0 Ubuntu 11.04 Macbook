@@ -1,0 +1,81 @@
+Install CUDA 4.0 on Ubuntu 11.04
+--------------------------------
+
+(1) Instalar las dependencias
+
+sudo apt-get install build-essential gcc-4.4 g++-4.4 libxi-dev libxmu-dev freeglut3-dev
+
+(2) Descargar e instalar lo siguiente de este enlace: 
+http://developer.nvidia.com/cuda-toolkit-40#Linux
+
+- CUDA Toolkit para Ubuntu 10.10
+
+sudo sh cudatoolkit_4.0.17_linux_32_ubuntu10.10.run
+
+- CUDA Tools SDK
+
+sudo sh cudatools_4.0.17_linux_32.run
+
+- GPU Computing SDK code samples
+
+sh gpucomputingsdk_4.0.17_linux.run 
+
+(3) Descargar e instalar los Developer Drivers for Linux (270.41.19) del enlace del punto (2)
+- Descargar Developer Drivers for Linux (270.41.19)
+- Eliminar los drivers de NVIDIA
+
+sudo apt-get remove nvidia-common nvidia-current
+
+- Pulsar ctrl+alt+F1 para entrar en una terminar virtual
+- Detener el servidor gráfico
+
+sudo service gdm stop
+
+- Ejecutar el instalador del driver. Si hay problemas con "nouveau" le pedimos al driver que desactive el driver nouveau (Y REINICIAMOS EL EQUIPO). Para ello creará un fichero en /etc/mobprobe.d/nvidia-installer-disable-nouveau.conf
+
+sudo sh devdriver_4.0_linux_32_270.41.19.run
+
+- Arrancar de nuevo el servidor gráfico
+
+sudo service gdm start
+
+- El driver nouveau entra en conflicto con el driver de NVIDIA, por lo que lo ponemos en la lista negra. En el fichero /etc/modprobe.d/blacklist.conf añadimos "blacklist nouveau" (sin comillas).
+
+miguel@miguel-MacBook:/etc/modprobe.d$ sudo gedit blacklist.conf
+
+- Crea el fichero /etc/ld.so.conf.d/cuda.conf y añade las siguientes líneas:
+/usr/local/cuda/lib64
+/usr/local/cuda/lib
+
+- Asumiendo que has aceptado la instalación por defecto, se añade un fichero .bashrc en tu directorio "Home". Ejecutar las siguientes líneas de código para exportar las librerías de CUDA. En el terminal, en la carpeta "miguel" escribir "sudo gedit .bashrc".
+
+export CUDA_HOME="/usr/local/cuda"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${CUDA_HOME}/lib64"
+export PATH=${CUDA_HOME}/bin:${PATH}
+
+source ~/.bashrc
+sudo ldconfig
+
+(4) Crear enlaces a los compiladores en el directorio "Home"
+
+mkdir gcc44
+
+cd gcc44
+ln -s /usr/bin/cpp-4.4 cpp
+ln -s /usr/bin/gcc-4.4 gcc
+ln -s /usr/bin/g++-4.4 g++
+
+- Editar el fichero /usr/local/cuda/bin/nvcc.profile para que vea el directorio de los compiladores (miguel@miguel-MacBook:/usr/local/cuda/bin$ sudo gedit nvcc.profile) y añadir la siguiente línea al fichero. 
+compiler-bindir =/home/miguel/gcc44
+
+- Dar permiso de ejecución a los compiladores, que deben estar en el directorio miguel/gcc44
+
+sudo chmod +x cpp
+sudo chmod +x g++
+sudo chmod +x gcc
+
+
+(5) Compilar los códigos de ejemplo del directorio NVIDIA_GPU_Computing_SDK/C
+
+cd ~/NVIDIA_GPU_Computing_SDK/C
+make -j2

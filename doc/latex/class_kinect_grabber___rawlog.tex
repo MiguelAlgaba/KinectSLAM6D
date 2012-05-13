@@ -1,0 +1,164 @@
+\hypertarget{class_kinect_grabber___rawlog}{
+\section{KinectGrabber\_\-Rawlog Class Reference}
+\label{class_kinect_grabber___rawlog}\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}}
+}
+
+
+{\ttfamily \#include $<$KinectGrabber\_\-Rawlog.h$>$}
+
+Inheritance diagram for KinectGrabber\_\-Rawlog:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_kinect_grabber___rawlog}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_kinect_grabber___rawlog_1_1_t_thread_param}{TThreadParam}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_kinect_grabber___rawlog_abd7e578bb31953eb6e2eb39543319f62}{KinectGrabber\_\-Rawlog} (const std::string \&rawlog\_\-file)
+\item 
+void \hyperlink{class_kinect_grabber___rawlog_a111bd24662e2dcf4ab3ee82a26a089b6}{getCurrentColouredPointCloudPtr} (pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&colouredPointCloudPtr)
+\item 
+void \hyperlink{class_kinect_grabber___rawlog_a91322ecfdf2706e9fa160679e49c9960}{filterPointCloud} (pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&colouredPointCloudPtr, pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&downsampledPointCloudPtr)
+\item 
+void \hyperlink{class_kinect_grabber___rawlog_aa3f3757bb08b3453661084e1439c73e6}{getCurrentIntensityImage} (cv::Mat \&intensityImage)
+\item 
+void \hyperlink{class_kinect_grabber___rawlog_a1eac54348c1963bd5823337b72e10583}{grab} ()
+\item 
+void \hyperlink{class_kinect_grabber___rawlog_a17b718e8d4142965a84f8bedad738834}{stopGrabber} ()
+\item 
+void \hyperlink{class_kinect_grabber___rawlog_aa5633577a641a2f4f22dcc92bae059c3}{getCurrentFrameRGBD} (\hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_kinect_grabber___rawlog_a7aa6e56a18c9090f2b3009ab691a4850}{
+\hyperlink{struct_kinect_grabber___rawlog_1_1_t_thread_param}{TThreadParam} $\ast$ {\bfseries thrParPtr}}
+\label{class_kinect_grabber___rawlog_a7aa6e56a18c9090f2b3009ab691a4850}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_kinect_grabber___rawlog_a0f4c2d06f54de46bbe64df6435982b87}{
+mrpt::slam::CObservation3DRangeScanPtr {\bfseries currentObservationPtr}}
+\label{class_kinect_grabber___rawlog_a0f4c2d06f54de46bbe64df6435982b87}
+
+\item 
+\hypertarget{class_kinect_grabber___rawlog_acf419f440ab2a1c7e94a997004c066ff}{
+mrpt::system::TThreadHandle {\bfseries thHandle}}
+\label{class_kinect_grabber___rawlog_acf419f440ab2a1c7e94a997004c066ff}
+
+\item 
+\hypertarget{class_kinect_grabber___rawlog_a4b6bc22294bb13860292c0d5ddb7002e}{
+mrpt::system::TTimeStamp {\bfseries timeStamp}}
+\label{class_kinect_grabber___rawlog_a4b6bc22294bb13860292c0d5ddb7002e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class captures RGBD frames from rawlog sensor data using the MRPT library. It grabs the intensity image as well as its corresponding 3D point cloud. It also grabs the timestamp of each frame if provided in the rawlog. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_kinect_grabber___rawlog_abd7e578bb31953eb6e2eb39543319f62}{
+\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}!KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}}
+\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}!KinectGrabber_Rawlog@{KinectGrabber\_\-Rawlog}}
+\subsubsection[{KinectGrabber\_\-Rawlog}]{\setlength{\rightskip}{0pt plus 5cm}KinectGrabber\_\-Rawlog::KinectGrabber\_\-Rawlog (
+\begin{DoxyParamCaption}
+\item[{const std::string \&}]{rawlog\_\-file}
+\end{DoxyParamCaption}
+)}}
+\label{class_kinect_grabber___rawlog_abd7e578bb31953eb6e2eb39543319f62}
+Creates a \hyperlink{class_kinect_grabber___rawlog}{KinectGrabber\_\-Rawlog} instance that grabs RGBD frames from the specified rawlog file. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_kinect_grabber___rawlog_a91322ecfdf2706e9fa160679e49c9960}{
+\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}!filterPointCloud@{filterPointCloud}}
+\index{filterPointCloud@{filterPointCloud}!KinectGrabber_Rawlog@{KinectGrabber\_\-Rawlog}}
+\subsubsection[{filterPointCloud}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-Rawlog::filterPointCloud (
+\begin{DoxyParamCaption}
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{colouredPointCloudPtr, }
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{downsampledPointCloudPtr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___rawlog_a91322ecfdf2706e9fa160679e49c9960}
+Returns a downsampled version of the provided 3D point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a3faafcbdbb136dd2c6b51d51eed9e147}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___rawlog_a111bd24662e2dcf4ab3ee82a26a089b6}{
+\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}!getCurrentColouredPointCloudPtr@{getCurrentColouredPointCloudPtr}}
+\index{getCurrentColouredPointCloudPtr@{getCurrentColouredPointCloudPtr}!KinectGrabber_Rawlog@{KinectGrabber\_\-Rawlog}}
+\subsubsection[{getCurrentColouredPointCloudPtr}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-Rawlog::getCurrentColouredPointCloudPtr (
+\begin{DoxyParamCaption}
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{colouredPointCloudPtr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___rawlog_a111bd24662e2dcf4ab3ee82a26a089b6}
+Returns the current 3D coloured point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a053e560dfd15e6123d19e4aa20b19585}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___rawlog_aa5633577a641a2f4f22dcc92bae059c3}{
+\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}!getCurrentFrameRGBD@{getCurrentFrameRGBD}}
+\index{getCurrentFrameRGBD@{getCurrentFrameRGBD}!KinectGrabber_Rawlog@{KinectGrabber\_\-Rawlog}}
+\subsubsection[{getCurrentFrameRGBD}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-Rawlog::getCurrentFrameRGBD (
+\begin{DoxyParamCaption}
+\item[{{\bf FrameRGBD} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___rawlog_aa5633577a641a2f4f22dcc92bae059c3}
+Returns a RGBD frame containing the intensity image and 3D point cloud. It also computes a downsampled version of the 3D point cloud and adds it to the returned RGBD frame. 
+
+Implements \hyperlink{class_kinect_grabber_abca25bbc3ddc8bc99dc1c84df48ae9f2}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___rawlog_aa3f3757bb08b3453661084e1439c73e6}{
+\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}!getCurrentIntensityImage@{getCurrentIntensityImage}}
+\index{getCurrentIntensityImage@{getCurrentIntensityImage}!KinectGrabber_Rawlog@{KinectGrabber\_\-Rawlog}}
+\subsubsection[{getCurrentIntensityImage}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-Rawlog::getCurrentIntensityImage (
+\begin{DoxyParamCaption}
+\item[{cv::Mat \&}]{intensityImage}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___rawlog_aa3f3757bb08b3453661084e1439c73e6}
+Returns the current intensity image provided by the RGB camera. 
+
+Implements \hyperlink{class_kinect_grabber_a47a54afb0a188cdd02f3cf79d503b3dd}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___rawlog_a1eac54348c1963bd5823337b72e10583}{
+\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}!grab@{grab}}
+\index{grab@{grab}!KinectGrabber_Rawlog@{KinectGrabber\_\-Rawlog}}
+\subsubsection[{grab}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-Rawlog::grab (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___rawlog_a1eac54348c1963bd5823337b72e10583}
+Retains the current intensity image and its corresponding 3D point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a0274f336f9aee07bca08bd673cf9377a}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___rawlog_a17b718e8d4142965a84f8bedad738834}{
+\index{KinectGrabber\_\-Rawlog@{KinectGrabber\_\-Rawlog}!stopGrabber@{stopGrabber}}
+\index{stopGrabber@{stopGrabber}!KinectGrabber_Rawlog@{KinectGrabber\_\-Rawlog}}
+\subsubsection[{stopGrabber}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-Rawlog::stopGrabber (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___rawlog_a17b718e8d4142965a84f8bedad738834}
+Stop grabing RGBD frames. 
+
+Implements \hyperlink{class_kinect_grabber_af7d0fcdc2f85f84cb38469095882d688}{KinectGrabber}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+KinectGrabber\_\-Rawlog.h\end{DoxyCompactItemize}

@@ -1,0 +1,10 @@
+function a = plotArrow(x1,y1,x2,y2)
+
+	hold on;
+
+	line([x1,x2],[y1,y2]);
+	plot(x2,y2,'^')
+
+	hold on;
+
+end

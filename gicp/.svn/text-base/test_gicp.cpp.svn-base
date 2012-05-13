@@ -1,0 +1,167 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+
+#include "gicp.h"
+
+using namespace std;
+using namespace dgc::gicp;
+
+
+void load_points(GICPPointSet *set, const char* filename) {
+  cout << filename << endl;
+  ifstream in(filename);
+  if(!in) {
+    cout << "Could not open '" << filename << "'." << endl;
+    return;
+  }
+  string line;
+  GICPPoint pt;
+  pt.range = -1;
+  for(int k = 0; k < 3; k++) {
+    for(int l = 0; l < 3; l++) {
+      pt.C[k][l] = (k == l)?1:0;
+    }
+  }    
+  while(getline(in, line)) {
+    istringstream sin(line);
+    sin >> pt.x >> pt.y >> pt.z;    
+    set->AppendPoint(pt);    
+  }
+  
+  in.close();
+};
+
+
+void test_transform_order() {
+  dgc_transform_t t1, t2;
+  double tx,ty,tz,rx,ry,rz;
+  
+  for(int i = 0; i < 5; i++) {
+    rx = dgc_uniform_random(-10,10);
+    ry = dgc_uniform_random(-10,10);
+    rz = dgc_uniform_random(-10,10);
+    
+    dgc_transform_identity(t1);
+    dgc_transform_rotate_x(t1, rx);
+    dgc_transform_rotate_y(t1, ry);
+    dgc_transform_rotate_z(t1, rz);
+    
+    cout << "R(" 
+	 << rx << ", "
+	 << ry << ", "
+	 << rz << ") = " << endl;
+    dgc_transform_print(t1, "");
+      
+
+  }
+
+  
+
+  
+  for(int i = 0; i < 5; i++) {
+    // set up t1
+    tx = dgc_uniform_random(-5,5);
+    ty = dgc_uniform_random(-5,5);
+    tz = dgc_uniform_random(-5,5);
+    rx = dgc_uniform_random(-10,10);
+    ry = dgc_uniform_random(-10,10);
+    rz = dgc_uniform_random(-10,10);
+    
+    dgc_transform_identity(t1);
+    
+    dgc_transform_rotate_x(t1, rx);
+    dgc_transform_rotate_y(t1, ry);
+    dgc_transform_rotate_z(t1, rz);
+    dgc_transform_translate(t1, tx, ty, tz);
+
+    // get euler angles out of t1
+    dgc_transform_get_translation(t1, &tx, &ty, &tz);
+    dgc_transform_get_rotation(t1, &rx, &ry, &rz);
+    // build t2 based on euler angle and rotation order
+    dgc_transform_identity(t2);
+    
+    dgc_transform_rotate_x(t2, rx);
+    dgc_transform_rotate_y(t2, ry);
+    dgc_transform_rotate_z(t2, rz);
+    
+    dgc_transform_translate(t2, tx, ty, tz);
+
+    for(int k = 0; k < 4; k++) {
+      for(int l = 0; l < 4; l++) {
+	if(fabs(t1[k][l] - t2[k][l]) >= 1e-6) {
+	  cout << "Error!" << endl;
+	  exit(0);
+	}
+      }
+    }
+    
+  }
+}
+
+int main(int argc, char** argv) {
+  cout << "Test program for the gicp library." << endl;
+  
+  //test_transform_order();
+
+  GICPPointSet p1, p2;
+  dgc_transform_t base_t, t0, t1;
+
+  // set up the transformations
+  dgc_transform_identity(base_t);
+  dgc_transform_identity(t0);
+  dgc_transform_identity(t1);
+  
+  //dgc_transform_rotate_z(t0, .05);
+  //dgc_transform_translate(t0, -1.6, -2.42, 0);
+  //dgc_transform_translate(base_t, 0.2, -.1, .4);
+  
+  
+  dgc_transform_read(base_t, "base_t_4.tfm");
+
+  //dgc_transform_read(base_t, "t_base.tfm");
+  
+  // initialize points clouds
+  cout << "Setting up pointclouds..." << endl;
+  //load_points(&p1, "test_data/pt_cloud_770.ascii");
+  load_points(&p1, "pts1_4.dat");
+  cout << "Loaded " << p1.Size() << " points into GICPPointSet 1." << endl;
+  //load_points(&p2, "test_data/pt_cloud_772.ascii");
+  load_points(&p2, "pts2_4.dat");
+  cout << "Loaded " << p2.Size() << " points into GICPPointSet 2." << endl;  
+  
+  // build kdtrees and normal matrices
+  cout << "Building KDTree and computing surface normals/matrices..." << endl;
+  double gicp_eps = 5.e-3;
+  p1.SetGICPEpsilon(gicp_eps);
+  p2.SetGICPEpsilon(gicp_eps);  
+  p1.BuildKDTree();
+  p1.ComputeMatrices();
+  p2.BuildKDTree();
+  p2.ComputeMatrices();
+  p2.SetMaxIterationInner(5);
+  p1.SetMaxIterationInner(5);
+  p1.SavePoints("pts1.dat");
+  p1.SaveMatrices("mats1.dat");
+  p2.SavePoints("pts2.dat");
+  p2.SaveMatrices("mats2.dat");
+  
+  // align the point clouds
+  cout << "Aligning point cloud..." << endl;
+  dgc_transform_copy(t1, t0);
+
+  //p2.SetSolveRotation(false);
+  p2.SetDebug(true);
+  p2.SetMaxIterationInner(20);
+  p2.SetMaxIteration(51);
+  p2.AlignScan(&p1, base_t, t1, 2.5);
+  
+  // print the result
+  cout << "Converged: " << endl;
+  dgc_transform_print(base_t, "base_t");
+  dgc_transform_print(t0, "t0");  
+  dgc_transform_print(t1, "t1");
+
+  return 0;
+}

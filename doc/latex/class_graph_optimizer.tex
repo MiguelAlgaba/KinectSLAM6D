@@ -1,0 +1,106 @@
+\hypertarget{class_graph_optimizer}{
+\section{GraphOptimizer Class Reference}
+\label{class_graph_optimizer}\index{GraphOptimizer@{GraphOptimizer}}
+}
+
+
+{\ttfamily \#include $<$GraphOptimizer.h$>$}
+
+Inheritance diagram for GraphOptimizer:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_optimizer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int \hyperlink{class_graph_optimizer_a2acd85307e0c0a006a2360f9d7e29bce}{addVertex} (Eigen::Matrix4f \&pose)=0
+\item 
+virtual void \hyperlink{class_graph_optimizer_a7bf9e4c2d3376bf8af5b15c86398950e}{addEdge} (const int fromIdx, const int toIdx, Eigen::Matrix4f \&relPose, Eigen::Matrix$<$ double, 6, 6 $>$ \&infMatrix)=0
+\item 
+virtual void \hyperlink{class_graph_optimizer_ad1e8ac7c0aa9c90f3035c1d29036eedb}{optimizeGraph} ()=0
+\item 
+virtual void \hyperlink{class_graph_optimizer_a914f6c37de8dc6437122b3f563cce9a5}{getPoses} (std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&)=0
+\item 
+virtual void \hyperlink{class_graph_optimizer_a303a1e4e96fa44433ef48aa4051fab32}{saveGraph} (std::string fileName)=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract class that defines the mandatory methods that a 6D GraphSLAM optimizer must implement. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_graph_optimizer_a7bf9e4c2d3376bf8af5b15c86398950e}{
+\index{GraphOptimizer@{GraphOptimizer}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!GraphOptimizer@{GraphOptimizer}}
+\subsubsection[{addEdge}]{\setlength{\rightskip}{0pt plus 5cm}virtual void GraphOptimizer::addEdge (
+\begin{DoxyParamCaption}
+\item[{const int}]{fromIdx, }
+\item[{const int}]{toIdx, }
+\item[{Eigen::Matrix4f \&}]{relPose, }
+\item[{Eigen::Matrix$<$ double, 6, 6 $>$ \&}]{infMatrix}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_graph_optimizer_a7bf9e4c2d3376bf8af5b15c86398950e}
+Adds an edge that defines a spatial constraint between the vertices \char`\"{}fromIdx\char`\"{} and \char`\"{}toIdx\char`\"{} with information matrix that determines the weight of the added edge. 
+
+Implemented in \hyperlink{class_graph_optimizer___g2_o_a53c3edc42e43fef29e4a945141654391}{GraphOptimizer\_\-G2O}, and \hyperlink{class_graph_optimizer___m_r_p_t_a593e4c3752d6e3b6340145e5fd03ad92}{GraphOptimizer\_\-MRPT}.
+
+\hypertarget{class_graph_optimizer_a2acd85307e0c0a006a2360f9d7e29bce}{
+\index{GraphOptimizer@{GraphOptimizer}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!GraphOptimizer@{GraphOptimizer}}
+\subsubsection[{addVertex}]{\setlength{\rightskip}{0pt plus 5cm}virtual int GraphOptimizer::addVertex (
+\begin{DoxyParamCaption}
+\item[{Eigen::Matrix4f \&}]{pose}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_graph_optimizer_a2acd85307e0c0a006a2360f9d7e29bce}
+Adds a new vertex to the graph. The provided 4x4 matrix will be considered as the pose of the new added vertex. It returns the index of the added vertex. 
+
+Implemented in \hyperlink{class_graph_optimizer___g2_o_ad1c9376f78767de3063170221e43859a}{GraphOptimizer\_\-G2O}, and \hyperlink{class_graph_optimizer___m_r_p_t_a2c5a89fce928859445d3ec2627a0ed3e}{GraphOptimizer\_\-MRPT}.
+
+\hypertarget{class_graph_optimizer_a914f6c37de8dc6437122b3f563cce9a5}{
+\index{GraphOptimizer@{GraphOptimizer}!getPoses@{getPoses}}
+\index{getPoses@{getPoses}!GraphOptimizer@{GraphOptimizer}}
+\subsubsection[{getPoses}]{\setlength{\rightskip}{0pt plus 5cm}virtual void GraphOptimizer::getPoses (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_graph_optimizer_a914f6c37de8dc6437122b3f563cce9a5}
+Returns a vector with all the optimized poses of the graph. 
+
+Implemented in \hyperlink{class_graph_optimizer___g2_o_ad30f6cd46b424482a7b26e41fb442f50}{GraphOptimizer\_\-G2O}, and \hyperlink{class_graph_optimizer___m_r_p_t_a40f1548815f2830a950bb682782793b7}{GraphOptimizer\_\-MRPT}.
+
+\hypertarget{class_graph_optimizer_ad1e8ac7c0aa9c90f3035c1d29036eedb}{
+\index{GraphOptimizer@{GraphOptimizer}!optimizeGraph@{optimizeGraph}}
+\index{optimizeGraph@{optimizeGraph}!GraphOptimizer@{GraphOptimizer}}
+\subsubsection[{optimizeGraph}]{\setlength{\rightskip}{0pt plus 5cm}virtual void GraphOptimizer::optimizeGraph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_graph_optimizer_ad1e8ac7c0aa9c90f3035c1d29036eedb}
+Calls the graph optimization process to determine the pose configuration that best satisfies the constraints defined by the edges. 
+
+Implemented in \hyperlink{class_graph_optimizer___g2_o_a78dac310c50fdd61bcbcc64855fe6565}{GraphOptimizer\_\-G2O}, and \hyperlink{class_graph_optimizer___m_r_p_t_aa60e33c3028018515f01aaae20ec9bd5}{GraphOptimizer\_\-MRPT}.
+
+\hypertarget{class_graph_optimizer_a303a1e4e96fa44433ef48aa4051fab32}{
+\index{GraphOptimizer@{GraphOptimizer}!saveGraph@{saveGraph}}
+\index{saveGraph@{saveGraph}!GraphOptimizer@{GraphOptimizer}}
+\subsubsection[{saveGraph}]{\setlength{\rightskip}{0pt plus 5cm}virtual void GraphOptimizer::saveGraph (
+\begin{DoxyParamCaption}
+\item[{std::string}]{fileName}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_graph_optimizer_a303a1e4e96fa44433ef48aa4051fab32}
+Saves the graph to file. 
+
+Implemented in \hyperlink{class_graph_optimizer___g2_o_ae0aff0bbd454803fb4a32fc5bdae1a2a}{GraphOptimizer\_\-G2O}, and \hyperlink{class_graph_optimizer___m_r_p_t_a5456297ea1d91e7cafc55e3a46ee7ad6}{GraphOptimizer\_\-MRPT}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+GraphOptimizer.h\end{DoxyCompactItemize}

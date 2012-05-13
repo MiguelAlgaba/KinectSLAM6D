@@ -1,0 +1,119 @@
+\hypertarget{class_graph_optimizer___m_r_p_t}{
+\section{GraphOptimizer\_\-MRPT Class Reference}
+\label{class_graph_optimizer___m_r_p_t}\index{GraphOptimizer\_\-MRPT@{GraphOptimizer\_\-MRPT}}
+}
+
+
+{\ttfamily \#include $<$GraphOptimizer\_\-MRPT.h$>$}
+
+Inheritance diagram for GraphOptimizer\_\-MRPT:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_optimizer___m_r_p_t}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_graph_optimizer___m_r_p_t_a2c5a89fce928859445d3ec2627a0ed3e}{addVertex} (Eigen::Matrix4f \&pose)
+\item 
+void \hyperlink{class_graph_optimizer___m_r_p_t_a593e4c3752d6e3b6340145e5fd03ad92}{addEdge} (const int fromIdx, const int toIdx, Eigen::Matrix4f \&relPose, Eigen::Matrix$<$ double, 6, 6 $>$ \&infMatrix)
+\item 
+void \hyperlink{class_graph_optimizer___m_r_p_t_aa60e33c3028018515f01aaae20ec9bd5}{optimizeGraph} ()
+\item 
+void \hyperlink{class_graph_optimizer___m_r_p_t_a40f1548815f2830a950bb682782793b7}{getPoses} (std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&)
+\item 
+void \hyperlink{class_graph_optimizer___m_r_p_t_a5456297ea1d91e7cafc55e3a46ee7ad6}{saveGraph} (std::string fileName)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_graph_optimizer___m_r_p_t_af1f16e6edcf0bff4861e940c3ab5987b}{
+int {\bfseries vertexIdx}}
+\label{class_graph_optimizer___m_r_p_t_af1f16e6edcf0bff4861e940c3ab5987b}
+
+\item 
+\hypertarget{class_graph_optimizer___m_r_p_t_aa0edf72c3742a01b7fc87130346a349b}{
+mrpt::graphs::CNetworkOfPoses3DInf {\bfseries graph}}
+\label{class_graph_optimizer___m_r_p_t_aa0edf72c3742a01b7fc87130346a349b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class encapsulates the functionality of the MRPT graph-\/slam module to perform 6D graph optimization. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_graph_optimizer___m_r_p_t_a593e4c3752d6e3b6340145e5fd03ad92}{
+\index{GraphOptimizer\_\-MRPT@{GraphOptimizer\_\-MRPT}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!GraphOptimizer_MRPT@{GraphOptimizer\_\-MRPT}}
+\subsubsection[{addEdge}]{\setlength{\rightskip}{0pt plus 5cm}void GraphOptimizer\_\-MRPT::addEdge (
+\begin{DoxyParamCaption}
+\item[{const int}]{fromIdx, }
+\item[{const int}]{toIdx, }
+\item[{Eigen::Matrix4f \&}]{relPose, }
+\item[{Eigen::Matrix$<$ double, 6, 6 $>$ \&}]{infMatrix}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___m_r_p_t_a593e4c3752d6e3b6340145e5fd03ad92}
+Adds an edge that defines a spatial constraint between the vertices \char`\"{}fromIdx\char`\"{} and \char`\"{}toIdx\char`\"{} with information matrix that determines the weight of the added edge. 
+
+Implements \hyperlink{class_graph_optimizer_a7bf9e4c2d3376bf8af5b15c86398950e}{GraphOptimizer}.
+
+\hypertarget{class_graph_optimizer___m_r_p_t_a2c5a89fce928859445d3ec2627a0ed3e}{
+\index{GraphOptimizer\_\-MRPT@{GraphOptimizer\_\-MRPT}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!GraphOptimizer_MRPT@{GraphOptimizer\_\-MRPT}}
+\subsubsection[{addVertex}]{\setlength{\rightskip}{0pt plus 5cm}int GraphOptimizer\_\-MRPT::addVertex (
+\begin{DoxyParamCaption}
+\item[{Eigen::Matrix4f \&}]{pose}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___m_r_p_t_a2c5a89fce928859445d3ec2627a0ed3e}
+Adds a new vertex to the graph. The provided 4x4 matrix will be considered as the pose of the new added vertex. It returns the index of the added vertex. 
+
+Implements \hyperlink{class_graph_optimizer_a2acd85307e0c0a006a2360f9d7e29bce}{GraphOptimizer}.
+
+\hypertarget{class_graph_optimizer___m_r_p_t_a40f1548815f2830a950bb682782793b7}{
+\index{GraphOptimizer\_\-MRPT@{GraphOptimizer\_\-MRPT}!getPoses@{getPoses}}
+\index{getPoses@{getPoses}!GraphOptimizer_MRPT@{GraphOptimizer\_\-MRPT}}
+\subsubsection[{getPoses}]{\setlength{\rightskip}{0pt plus 5cm}void GraphOptimizer\_\-MRPT::getPoses (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___m_r_p_t_a40f1548815f2830a950bb682782793b7}
+Returns a vector with all the optimized poses of the graph. 
+
+Implements \hyperlink{class_graph_optimizer_a914f6c37de8dc6437122b3f563cce9a5}{GraphOptimizer}.
+
+\hypertarget{class_graph_optimizer___m_r_p_t_aa60e33c3028018515f01aaae20ec9bd5}{
+\index{GraphOptimizer\_\-MRPT@{GraphOptimizer\_\-MRPT}!optimizeGraph@{optimizeGraph}}
+\index{optimizeGraph@{optimizeGraph}!GraphOptimizer_MRPT@{GraphOptimizer\_\-MRPT}}
+\subsubsection[{optimizeGraph}]{\setlength{\rightskip}{0pt plus 5cm}void GraphOptimizer\_\-MRPT::optimizeGraph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___m_r_p_t_aa60e33c3028018515f01aaae20ec9bd5}
+Calls the graph optimization process to determine the pose configuration that best satisfies the constraints defined by the edges. 
+
+Implements \hyperlink{class_graph_optimizer_ad1e8ac7c0aa9c90f3035c1d29036eedb}{GraphOptimizer}.
+
+\hypertarget{class_graph_optimizer___m_r_p_t_a5456297ea1d91e7cafc55e3a46ee7ad6}{
+\index{GraphOptimizer\_\-MRPT@{GraphOptimizer\_\-MRPT}!saveGraph@{saveGraph}}
+\index{saveGraph@{saveGraph}!GraphOptimizer_MRPT@{GraphOptimizer\_\-MRPT}}
+\subsubsection[{saveGraph}]{\setlength{\rightskip}{0pt plus 5cm}void GraphOptimizer\_\-MRPT::saveGraph (
+\begin{DoxyParamCaption}
+\item[{std::string}]{fileName}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___m_r_p_t_a5456297ea1d91e7cafc55e3a46ee7ad6}
+Saves the graph to file. 
+
+Implements \hyperlink{class_graph_optimizer_a303a1e4e96fa44433ef48aa4051fab32}{GraphOptimizer}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+GraphOptimizer\_\-MRPT.h\end{DoxyCompactItemize}

@@ -1,0 +1,45 @@
+\hypertarget{struct_kinect_grabber___rawlog_1_1_t_thread_param}{
+\section{KinectGrabber\_\-Rawlog::TThreadParam Struct Reference}
+\label{struct_kinect_grabber___rawlog_1_1_t_thread_param}\index{KinectGrabber\_\-Rawlog::TThreadParam@{KinectGrabber\_\-Rawlog::TThreadParam}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{struct_kinect_grabber___rawlog_1_1_t_thread_param_ad74f52ed635f96eccd143d0d82975342}{
+{\bfseries TThreadParam} (const std::string \&\_\-rawlog\_\-file=std::string(), bool \_\-generate\_\-3D\_\-pointcloud\_\-in\_\-this\_\-thread=false)}
+\label{struct_kinect_grabber___rawlog_1_1_t_thread_param_ad74f52ed635f96eccd143d0d82975342}
+
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{struct_kinect_grabber___rawlog_1_1_t_thread_param_a8e14ab7dafc94eb16a4db364fd6a0c37}{
+const std::string \hyperlink{struct_kinect_grabber___rawlog_1_1_t_thread_param_a8e14ab7dafc94eb16a4db364fd6a0c37}{rawlog\_\-file}}
+\label{struct_kinect_grabber___rawlog_1_1_t_thread_param_a8e14ab7dafc94eb16a4db364fd6a0c37}
+
+\begin{DoxyCompactList}\small\item\em Only when is\_\-online==false. \item\end{DoxyCompactList}\item 
+\hypertarget{struct_kinect_grabber___rawlog_1_1_t_thread_param_a4647b7cc25bc1963cc0d175de116f30f}{
+const bool \hyperlink{struct_kinect_grabber___rawlog_1_1_t_thread_param_a4647b7cc25bc1963cc0d175de116f30f}{generate\_\-3D\_\-pointcloud\_\-in\_\-this\_\-thread}}
+\label{struct_kinect_grabber___rawlog_1_1_t_thread_param_a4647b7cc25bc1963cc0d175de116f30f}
+
+\begin{DoxyCompactList}\small\item\em true: populate the 3D point fields in the output observation; false: only RGB and Depth images. \item\end{DoxyCompactList}\item 
+\hypertarget{struct_kinect_grabber___rawlog_1_1_t_thread_param_a32ec19b416203aebb2993d6466a86a15}{
+volatile bool \hyperlink{struct_kinect_grabber___rawlog_1_1_t_thread_param_a32ec19b416203aebb2993d6466a86a15}{quit}}
+\label{struct_kinect_grabber___rawlog_1_1_t_thread_param_a32ec19b416203aebb2993d6466a86a15}
+
+\begin{DoxyCompactList}\small\item\em In/Out variable: Forces the thread to exit or indicates an error in the thread that caused it to end. \item\end{DoxyCompactList}\item 
+\hypertarget{struct_kinect_grabber___rawlog_1_1_t_thread_param_aac0203113ffaad5599395431050ac37a}{
+volatile double \hyperlink{struct_kinect_grabber___rawlog_1_1_t_thread_param_aac0203113ffaad5599395431050ac37a}{Hz}}
+\label{struct_kinect_grabber___rawlog_1_1_t_thread_param_aac0203113ffaad5599395431050ac37a}
+
+\begin{DoxyCompactList}\small\item\em Out variable: Approx. capturing rate from the thread. \item\end{DoxyCompactList}\item 
+\hypertarget{struct_kinect_grabber___rawlog_1_1_t_thread_param_a8cf656cbaab31b17e8794674706efa50}{
+mrpt::synch::CThreadSafeVariable$<$ mrpt::slam::CObservation3DRangeScanPtr $>$ \hyperlink{struct_kinect_grabber___rawlog_1_1_t_thread_param_a8cf656cbaab31b17e8794674706efa50}{new\_\-obs}}
+\label{struct_kinect_grabber___rawlog_1_1_t_thread_param_a8cf656cbaab31b17e8794674706efa50}
+
+\begin{DoxyCompactList}\small\item\em RGB+D (+ optionally, 3D point cloud) \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+KinectGrabber\_\-Rawlog.h\end{DoxyCompactItemize}

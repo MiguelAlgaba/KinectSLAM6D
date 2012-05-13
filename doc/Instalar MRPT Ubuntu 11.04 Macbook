@@ -1,0 +1,99 @@
+Instalar CUDA 4.0
+
+Instalar SVN:
+	sudo apt-get install subversion
+
+Instalar CMake con interfaz gráfica (cmke-gui) desde centro de software Ubuntu
+
+Instalar OpenCV:
+	- Instalar librerías de gtk que necesita la Opencv
+	sudo apt-get install libgtk2.0-dev pkg-config //Sin esto no funcionan los ejemplos
+
+	- Instalar librerías adicionales para usar Kinect con OpenCV (en las librerías adicionales de la PCL 1.1 está OpenNI)
+	sudo apt-get install libusb-1.0-0-dev
+	sudo add-apt-repository ppa:v-launchpad-jochen-sprickerhof-de/pcl
+	sudo apt-get update
+	sudo apt-get install libpcl-1.1-dev
+
+		//Descargar la última versión en desarrollo (trunk)
+		//Ir al directorio de trabajo donde queremos descargar el trunk
+		cd ~/<my_working_directory>
+		svn co https://code.ros.org/svn/opencv/trunk
+
+		//Crear un directorio donde almacenar los Makefiles generados, project files, ficheros objeto y binarios ejecutables.
+		mkdir build
+		
+		//Configurar y generar los makefiles con CMake
+			//Seleccionar como source code el directorio de OpenCV ~/trunk/opencv
+			//Seleccionar el directorio donde queremos crear los makefiles ~/build
+			//Pulsar en configure y luego generate
+
+		//Compilamos OpenCV en el directorio build
+		cd build
+		make -j2
+		sudo make install (Opcional: si no queremos instalar podemos indicar a CMake el lugar del directorio build de OpenCV)
+
+
+Instalar PCL 1.1 (Visitar http://pointclouds.org/downloads/linux.html)
+	sudo add-apt-repository ppa:v-launchpad-jochen-sprickerhof-de/pcl
+	sudo apt-get update
+	sudo apt-get install libpcl-1.1-dev
+
+Instalar PCL 1.2 
+- Desinstalar PCL 1.1 (no desinstala las dependencias ni librerías opcionales)
+- Compilar la PCL 1.2 desde el trunk
+- Instalar la PCL 1.2 [Obligatorio para poder compilar proyectos que usen la PCL]
+	sudo make install
+- Si queremos desinstalar la versión compilada por nosotros con "sudo make install", debemos hacer "sudo make uninstall" en el directorio PCL_build.
+
+Instalar paquetes de desarrollo adicionales:
+ 	$ sudo apt-get install build-essential pkg-config cmake \
+   	libwxgtk2.8-dev libftdi-dev libglut3-dev \
+   	zlib1g-dev libusb-1.0-0-dev  \
+   	libdc1394-22-dev libavformat-dev libswscale-dev
+
+Instalar WXwidgets
+	libwxgtk2.8-dev libwxgtk2.8-dbg
+
+Instalar MRPT:
+	//Creamos una carpeta (SVN MRPT) dentro de la carpeta de trabajo para almacenar el trunk de MRPT.
+		
+	//Descargar la última versión de MRPT desde SVN
+	cd SVN MRPT	
+	svn checkout http://mrpt.googlecode.com/svn/trunk/ mrpt-read-only
+
+	//Configurar y generar los makefiles con CMake
+	Seleccionamos como fuente el directorio raíz de MRPT y creamos un directorio para almacenar los binarios (MRPT build). Realizamos los mismo que para OpenCV, configure y generate.
+
+	//Compilar MRPT
+	cd MRPT build
+	make -j2
+
+
+En el directorio mrpt_example1 hay un ejemplo de la MRPT para poder compilarlo de forma independiente. Con CMake hacemos "Configure", especificamos el directorio raíz donde compilamos la MRPT y luego hacemos "Generate". Esto nos genera los Makefiles o proyectos del IDE que hayamos seleccionado para poder compilar el ejemplo. Si queremos compilar ejemplos más complejos, escojemos el fichero CMakeList.txt y lo editamos para que incluya las librerías que le hacen falta.
+	
+En alguna que otra MRPT había un problema con HMT-SLAM y he tenido que evitar su compilación de esta forma:
+
+He conseguido compilar la MRPT evitando la compilación del módulo htm-slam y las aplicaciones que lo usan, ya que de otra forma no conseguía compilar el resto de módulos. Lo que he hecho ha sido lo siguiente:
+
+    En mrpt-read-only_29_11_2011/libs/CMakeList.txt he comentado la siguiente línea
+
+#add_subdirectory(hmtslam)
+
+    En mrpt-read-only_29_11_2011/apps/CMakeList.txt he comentado estas líneas
+
+#if(EXISTS ${MRPT_SOURCE_DIR}/apps/hmtMapViewer)
+#    add_subdirectory(hmtMapViewer)
+#endif(EXISTS ${MRPT_SOURCE_DIR}/apps/hmtMapViewer)
+#add_subdirectory(camera-calib)
+
+#if(EXISTS ${MRPT_SOURCE_DIR}/apps/hmt-slam)
+#    add_subdirectory(hmt-slam)
+#endif(EXISTS ${MRPT_SOURCE_DIR}/apps/hmt-slam)
+#if(EXISTS ${MRPT_SOURCE_DIR}/apps/hmt-slam-gui)
+#    add_subdirectory(hmt-slam-gui)
+#endif(EXISTS ${MRPT_SOURCE_DIR}/apps/hmt-slam-gui)
+	
+
+
+

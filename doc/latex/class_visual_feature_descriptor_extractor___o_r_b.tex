@@ -1,0 +1,53 @@
+\hypertarget{class_visual_feature_descriptor_extractor___o_r_b}{
+\section{VisualFeatureDescriptorExtractor\_\-ORB Class Reference}
+\label{class_visual_feature_descriptor_extractor___o_r_b}\index{VisualFeatureDescriptorExtractor\_\-ORB@{VisualFeatureDescriptorExtractor\_\-ORB}}
+}
+
+
+{\ttfamily \#include $<$VisualFeatureDescriptorExtractor\_\-ORB.h$>$}
+
+Inheritance diagram for VisualFeatureDescriptorExtractor\_\-ORB:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_visual_feature_descriptor_extractor___o_r_b}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_visual_feature_descriptor_extractor___o_r_b_a2cded6e20e202bb6f2db3a64edeaffcf}{detectKeypointsAndComputeDescriptors} (std::vector$<$ cv::KeyPoint $>$ \&keypoints, cv::Mat \&descriptors, std::vector$<$ float $>$ \&descriptors\_\-aux)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_visual_feature_descriptor_extractor___o_r_b_a07083d7edf26ab7fe0a12e270650517f}{
+cv::ORB {\bfseries orb}}
+\label{class_visual_feature_descriptor_extractor___o_r_b_a07083d7edf26ab7fe0a12e270650517f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class encapsulates the functionality of an ORB 2D visual feature detector and descriptor extractor using the OpenCV library. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_visual_feature_descriptor_extractor___o_r_b_a2cded6e20e202bb6f2db3a64edeaffcf}{
+\index{VisualFeatureDescriptorExtractor\_\-ORB@{VisualFeatureDescriptorExtractor\_\-ORB}!detectKeypointsAndComputeDescriptors@{detectKeypointsAndComputeDescriptors}}
+\index{detectKeypointsAndComputeDescriptors@{detectKeypointsAndComputeDescriptors}!VisualFeatureDescriptorExtractor_ORB@{VisualFeatureDescriptorExtractor\_\-ORB}}
+\subsubsection[{detectKeypointsAndComputeDescriptors}]{\setlength{\rightskip}{0pt plus 5cm}void VisualFeatureDescriptorExtractor\_\-ORB::detectKeypointsAndComputeDescriptors (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints, }
+\item[{cv::Mat \&}]{descriptors, }
+\item[{std::vector$<$ float $>$ \&}]{descriptors\_\-aux}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_visual_feature_descriptor_extractor___o_r_b_a2cded6e20e202bb6f2db3a64edeaffcf}
+Performs ORB feature detection and descriptor extraction over the image provided by the method setInputImage. 
+
+Implements \hyperlink{class_visual_feature_descriptor_extractor_aac4d313540ff83e03fb5b0a0952fc0f4}{VisualFeatureDescriptorExtractor}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+VisualFeatureDescriptorExtractor\_\-ORB.h\end{DoxyCompactItemize}

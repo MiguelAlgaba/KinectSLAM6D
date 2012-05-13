@@ -1,0 +1,205 @@
+\hypertarget{class_keyframe_loop_detector}{
+\section{KeyframeLoopDetector Class Reference}
+\label{class_keyframe_loop_detector}\index{KeyframeLoopDetector@{KeyframeLoopDetector}}
+}
+
+
+{\ttfamily \#include $<$KeyframeLoopDetector.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_keyframe_loop_detector_a2b059bd8fa4faab0af9c4b6af835ec7b}{
+{\bfseries KeyframeLoopDetector} (const int=30)}
+\label{class_keyframe_loop_detector_a2b059bd8fa4faab0af9c4b6af835ec7b}
+
+\item 
+void \hyperlink{class_keyframe_loop_detector_a5ef5a7ee9dde3e1dd875a5c952dee85b}{addKeyframe} (\hyperlink{class_frame_r_g_b_d}{FrameRGBD} $\ast$keyframe)
+\item 
+void \hyperlink{class_keyframe_loop_detector_af3d4e5a2dfb91c1f461952fb32b0c366}{addPose} (Eigen::Matrix4f \&pose)
+\item 
+void \hyperlink{class_keyframe_loop_detector_ac5c7855ada4a3660902f535a309b5394}{addKeypoints} (std::vector$<$ cv::KeyPoint $>$ \&keypoints)
+\item 
+void \hyperlink{class_keyframe_loop_detector_adad3db780d35efdb3c27bf3bc92c12eb}{addDescriptors} (cv::Mat \&descriptors)
+\item 
+void \hyperlink{class_keyframe_loop_detector_a9f171abd08e32c09d0db76725f027261}{detectLoop} (\hyperlink{class_visual_feature_matcher___generic}{VisualFeatureMatcher\_\-Generic} \&matcher, \hyperlink{class_visual3_d_rigid_transformation_estimator}{Visual3DRigidTransformationEstimator} \&rigidTransformEstimator, \hyperlink{class_i_c_p_pose_refiner}{ICPPoseRefiner} \&poseRefiner, std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&relativePoses, std::vector$<$ Eigen::Matrix$<$ double, 6, 6 $>$, Eigen::aligned\_\-allocator$<$ Eigen::Matrix$<$ double, 6, 6 $>$ $>$ $>$ \&infMatrices, std::vector$<$ int $>$ \&fromIndexes, int \&toIndex)
+\item 
+void \hyperlink{class_keyframe_loop_detector_a5b5a6c7378ab3846693c9d0025b7aa37}{getPoses} (std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&)
+\item 
+void \hyperlink{class_keyframe_loop_detector_a7043fa83b96b7407d4b4d31610574afe}{getKeyframes} (std::vector$<$ \hyperlink{class_frame_r_g_b_d}{FrameRGBD} $\ast$ $>$ \&)
+\item 
+void \hyperlink{class_keyframe_loop_detector_aa9b5a576a6c1a696840b3aeb208f2e40}{accumulateRelativePose} (Eigen::Matrix4f \&relPose)
+\item 
+void \hyperlink{class_keyframe_loop_detector_afce6712ebcfabb34d34b7917b7f18ea9}{getCurrentPose} (Eigen::Matrix4f \&pose)
+\item 
+void \hyperlink{class_keyframe_loop_detector_af4d7c5e2e9404d63197077c67fca0662}{setPoses} (std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&)
+\item 
+void \hyperlink{class_keyframe_loop_detector_af4cdff4bb98bd31b5a16347cff2da072}{saveLoopProfiling} (std::string fileName)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::vector$<$ \hyperlink{class_frame_r_g_b_d}{FrameRGBD} $\ast$ $>$ \hyperlink{class_keyframe_loop_detector_a9fc839f91a21d9666dbf40610d2be7df}{keyframes}
+\item 
+std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \hyperlink{class_keyframe_loop_detector_a486f9714c66706b85febede7f3653676}{poses}
+\item 
+std::vector$<$ std::vector$<$ cv::KeyPoint $>$ $>$ \hyperlink{class_keyframe_loop_detector_aed3185bed2b9c9c1e342d155f370bc60}{keypointsList}
+\item 
+std::vector$<$ cv::Mat $>$ \hyperlink{class_keyframe_loop_detector_a523e7cacd0a93ce8bc5a55100c571bed}{descriptorsList}
+\item 
+int \hyperlink{class_keyframe_loop_detector_a88bfa794730e06898b2f9aede72f22ca}{numberInliersThreshold}
+\item 
+\hypertarget{class_keyframe_loop_detector_a86cd4a82b86a5ebdce90bccda946bcc2}{
+Eigen::Matrix4f {\bfseries relativePose}}
+\label{class_keyframe_loop_detector_a86cd4a82b86a5ebdce90bccda946bcc2}
+
+\item 
+\hypertarget{class_keyframe_loop_detector_a8b48f2156c77ecb7822365016454fb16}{
+mrpt::utils::CTimeLogger {\bfseries profiler}}
+\label{class_keyframe_loop_detector_a8b48f2156c77ecb7822365016454fb16}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class implements a very straightforward approach for loop detection. It is based on the resulting number of inliers from the feature matching process. This implementation matches the last added keyframe against all the previous keyframes to find the ones that best match. If the number of inliers are greater than a certain threshold, then it considers that both the matched previous keyframe and the current keyframe belongs to the same place (loop detection). This class returns not only the loops between keyframes, but also the spatial constraints between keyframes. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_keyframe_loop_detector_aa9b5a576a6c1a696840b3aeb208f2e40}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!accumulateRelativePose@{accumulateRelativePose}}
+\index{accumulateRelativePose@{accumulateRelativePose}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{accumulateRelativePose}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::accumulateRelativePose (
+\begin{DoxyParamCaption}
+\item[{Eigen::Matrix4f \&}]{relPose}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_aa9b5a576a6c1a696840b3aeb208f2e40}
+Adds a new pose accumulating the provided relative pose. \hypertarget{class_keyframe_loop_detector_adad3db780d35efdb3c27bf3bc92c12eb}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!addDescriptors@{addDescriptors}}
+\index{addDescriptors@{addDescriptors}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{addDescriptors}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::addDescriptors (
+\begin{DoxyParamCaption}
+\item[{cv::Mat \&}]{descriptors}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_adad3db780d35efdb3c27bf3bc92c12eb}
+Adds the descriptors corresponding to the keypoints of the added keyframe. \hypertarget{class_keyframe_loop_detector_a5ef5a7ee9dde3e1dd875a5c952dee85b}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!addKeyframe@{addKeyframe}}
+\index{addKeyframe@{addKeyframe}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{addKeyframe}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::addKeyframe (
+\begin{DoxyParamCaption}
+\item[{{\bf FrameRGBD} $\ast$}]{keyframe}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_a5ef5a7ee9dde3e1dd875a5c952dee85b}
+Adds a new keyframe to the loop detector. \hypertarget{class_keyframe_loop_detector_ac5c7855ada4a3660902f535a309b5394}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!addKeypoints@{addKeypoints}}
+\index{addKeypoints@{addKeypoints}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{addKeypoints}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::addKeypoints (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_ac5c7855ada4a3660902f535a309b5394}
+Adds the keypoints corresponding the intensity image of the added keyframe. \hypertarget{class_keyframe_loop_detector_af3d4e5a2dfb91c1f461952fb32b0c366}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!addPose@{addPose}}
+\index{addPose@{addPose}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{addPose}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::addPose (
+\begin{DoxyParamCaption}
+\item[{Eigen::Matrix4f \&}]{pose}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_af3d4e5a2dfb91c1f461952fb32b0c366}
+Adds a 6D pose that specifies the position and orientation of the camera from which the keyframe has been grabbed. \hypertarget{class_keyframe_loop_detector_a9f171abd08e32c09d0db76725f027261}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!detectLoop@{detectLoop}}
+\index{detectLoop@{detectLoop}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{detectLoop}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::detectLoop (
+\begin{DoxyParamCaption}
+\item[{{\bf VisualFeatureMatcher\_\-Generic} \&}]{matcher, }
+\item[{{\bf Visual3DRigidTransformationEstimator} \&}]{rigidTransformEstimator, }
+\item[{{\bf ICPPoseRefiner} \&}]{poseRefiner, }
+\item[{std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&}]{relativePoses, }
+\item[{std::vector$<$ Eigen::Matrix$<$ double, 6, 6 $>$, Eigen::aligned\_\-allocator$<$ Eigen::Matrix$<$ double, 6, 6 $>$ $>$ $>$ \&}]{infMatrices, }
+\item[{std::vector$<$ int $>$ \&}]{fromIndexes, }
+\item[{int \&}]{toIndex}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_a9f171abd08e32c09d0db76725f027261}
+Performs the loop detection process matching the added keyframe against previous keyframes. It returns a vector of 6D relatives poses that defines spatial constraints between keyframes, a vector of 6x6 information matrices that represents the goodness of the matches. It also returns a vector of keyframe indexes and a keyframe index that determines the \char`\"{}origins\char`\"{} and \char`\"{}end\char`\"{} of each loop. \hypertarget{class_keyframe_loop_detector_afce6712ebcfabb34d34b7917b7f18ea9}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!getCurrentPose@{getCurrentPose}}
+\index{getCurrentPose@{getCurrentPose}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{getCurrentPose}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::getCurrentPose (
+\begin{DoxyParamCaption}
+\item[{Eigen::Matrix4f \&}]{pose}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_afce6712ebcfabb34d34b7917b7f18ea9}
+Returns the current keyframe pose. \hypertarget{class_keyframe_loop_detector_a7043fa83b96b7407d4b4d31610574afe}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!getKeyframes@{getKeyframes}}
+\index{getKeyframes@{getKeyframes}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{getKeyframes}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::getKeyframes (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ {\bf FrameRGBD} $\ast$ $>$ \&}]{}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_a7043fa83b96b7407d4b4d31610574afe}
+Returns a vector of all the keyframes \hypertarget{class_keyframe_loop_detector_a5b5a6c7378ab3846693c9d0025b7aa37}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!getPoses@{getPoses}}
+\index{getPoses@{getPoses}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{getPoses}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::getPoses (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&}]{}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_a5b5a6c7378ab3846693c9d0025b7aa37}
+Returns a vector of all the keyframe poses. \hypertarget{class_keyframe_loop_detector_af4cdff4bb98bd31b5a16347cff2da072}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!saveLoopProfiling@{saveLoopProfiling}}
+\index{saveLoopProfiling@{saveLoopProfiling}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{saveLoopProfiling}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::saveLoopProfiling (
+\begin{DoxyParamCaption}
+\item[{std::string}]{fileName}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_af4cdff4bb98bd31b5a16347cff2da072}
+Save profiling results for loop detection \hypertarget{class_keyframe_loop_detector_af4d7c5e2e9404d63197077c67fca0662}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!setPoses@{setPoses}}
+\index{setPoses@{setPoses}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{setPoses}]{\setlength{\rightskip}{0pt plus 5cm}void KeyframeLoopDetector::setPoses (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&}]{}
+\end{DoxyParamCaption}
+)}}
+\label{class_keyframe_loop_detector_af4d7c5e2e9404d63197077c67fca0662}
+Sets the vector of keyframe poses with the provided vector of poses. 
+
+\subsection{Field Documentation}
+\hypertarget{class_keyframe_loop_detector_a523e7cacd0a93ce8bc5a55100c571bed}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!descriptorsList@{descriptorsList}}
+\index{descriptorsList@{descriptorsList}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{descriptorsList}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$cv::Mat$>$ {\bf KeyframeLoopDetector::descriptorsList}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_keyframe_loop_detector_a523e7cacd0a93ce8bc5a55100c571bed}
+Vector of the decriptors corresponding to the 2D keypoints of each keyframe. \hypertarget{class_keyframe_loop_detector_a9fc839f91a21d9666dbf40610d2be7df}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!keyframes@{keyframes}}
+\index{keyframes@{keyframes}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{keyframes}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<${\bf FrameRGBD}$\ast$$>$ {\bf KeyframeLoopDetector::keyframes}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_keyframe_loop_detector_a9fc839f91a21d9666dbf40610d2be7df}
+Vector of all the added keyframes. \hypertarget{class_keyframe_loop_detector_aed3185bed2b9c9c1e342d155f370bc60}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!keypointsList@{keypointsList}}
+\index{keypointsList@{keypointsList}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{keypointsList}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$std::vector$<$cv::KeyPoint$>$ $>$ {\bf KeyframeLoopDetector::keypointsList}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_keyframe_loop_detector_aed3185bed2b9c9c1e342d155f370bc60}
+Vector of the 2D keypoints corresponding to the intensity image of each keyframe. \hypertarget{class_keyframe_loop_detector_a88bfa794730e06898b2f9aede72f22ca}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!numberInliersThreshold@{numberInliersThreshold}}
+\index{numberInliersThreshold@{numberInliersThreshold}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{numberInliersThreshold}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf KeyframeLoopDetector::numberInliersThreshold}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_keyframe_loop_detector_a88bfa794730e06898b2f9aede72f22ca}
+Threshold that specifies the minimum number of inliers needed to detect a loop. \hypertarget{class_keyframe_loop_detector_a486f9714c66706b85febede7f3653676}{
+\index{KeyframeLoopDetector@{KeyframeLoopDetector}!poses@{poses}}
+\index{poses@{poses}!KeyframeLoopDetector@{KeyframeLoopDetector}}
+\subsubsection[{poses}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$Eigen::Matrix4f $>$ $>$ {\bf KeyframeLoopDetector::poses}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_keyframe_loop_detector_a486f9714c66706b85febede7f3653676}
+Vector of the 6D poses corresponding to each keyframe. 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+KeyframeLoopDetector.h\end{DoxyCompactItemize}

@@ -1,0 +1,73 @@
+\hypertarget{class_i_c_p_pose_refiner___p_c_l}{
+\section{ICPPoseRefiner\_\-PCL Class Reference}
+\label{class_i_c_p_pose_refiner___p_c_l}\index{ICPPoseRefiner\_\-PCL@{ICPPoseRefiner\_\-PCL}}
+}
+
+
+{\ttfamily \#include $<$ICPPoseRefiner\_\-PCL.h$>$}
+
+Inheritance diagram for ICPPoseRefiner\_\-PCL:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_i_c_p_pose_refiner___p_c_l}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_i_c_p_pose_refiner___p_c_l_a0efdc4657c30bf0a171b0a012f4f0d8d}{refinePose} (\hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&frame1, \hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&frame2, Eigen::Matrix4f \&H)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_c_p_pose_refiner___p_c_l_a18dee09c2029e84f6a1e72910c528662}{
+pcl::IterativeClosestPoint$<$ pcl::PointXYZRGB, pcl::PointXYZRGB $>$ {\bfseries icp}}
+\label{class_i_c_p_pose_refiner___p_c_l_a18dee09c2029e84f6a1e72910c528662}
+
+\item 
+\hypertarget{class_i_c_p_pose_refiner___p_c_l_a25d56d3d98d851da532f29215d9c930e}{
+pcl::PointCloud$<$ pcl::PointXYZRGB $>$ {\bfseries alignedCloudPtr}}
+\label{class_i_c_p_pose_refiner___p_c_l_a25d56d3d98d851da532f29215d9c930e}
+
+\item 
+\hypertarget{class_i_c_p_pose_refiner___p_c_l_acab3758cb1d71c76f5868fdef2e53f5a}{
+float {\bfseries maxCorrespondenceDistance}}
+\label{class_i_c_p_pose_refiner___p_c_l_acab3758cb1d71c76f5868fdef2e53f5a}
+
+\item 
+\hypertarget{class_i_c_p_pose_refiner___p_c_l_ac50c9d45d78f75561e8d978f0b297502}{
+int {\bfseries maximumIterations}}
+\label{class_i_c_p_pose_refiner___p_c_l_ac50c9d45d78f75561e8d978f0b297502}
+
+\item 
+\hypertarget{class_i_c_p_pose_refiner___p_c_l_a640d703fc7c39b86287e37b555b1db9b}{
+float {\bfseries transformationEpsilon}}
+\label{class_i_c_p_pose_refiner___p_c_l_a640d703fc7c39b86287e37b555b1db9b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class encapsulates the functionality of a 3D rigid transformation refiner using the standard ICP algorithm implemented in the PCL library. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_i_c_p_pose_refiner___p_c_l_a0efdc4657c30bf0a171b0a012f4f0d8d}{
+\index{ICPPoseRefiner\_\-PCL@{ICPPoseRefiner\_\-PCL}!refinePose@{refinePose}}
+\index{refinePose@{refinePose}!ICPPoseRefiner_PCL@{ICPPoseRefiner\_\-PCL}}
+\subsubsection[{refinePose}]{\setlength{\rightskip}{0pt plus 5cm}void ICPPoseRefiner\_\-PCL::refinePose (
+\begin{DoxyParamCaption}
+\item[{{\bf FrameRGBD} \&}]{frame1, }
+\item[{{\bf FrameRGBD} \&}]{frame2, }
+\item[{Eigen::Matrix4f \&}]{H}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_i_c_p_pose_refiner___p_c_l_a0efdc4657c30bf0a171b0a012f4f0d8d}
+This method refines the 3D rigid transformation between frame1 and frame2 giving H as an initial guess. The refined rigid transformation will be returned in H. 
+
+Implements \hyperlink{class_i_c_p_pose_refiner_ad359ab15346aa343a51bd8ae71cd3ea1}{ICPPoseRefiner}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+ICPPoseRefiner\_\-PCL.h\end{DoxyCompactItemize}

@@ -1,0 +1,47 @@
+#COMPILER_ICC=1
+
+include ../../../../race/src/Makefile.conf
+
+# profiling
+CXXFLAGS += -o3
+LFLAGS += 
+
+#LFLAGS    += -qp
+#CXXFLASGS += -qp
+#CXXFLAGS += -O3 -xB -ipo -openmp
+#CXXFLAGS += -S -fsource-asm -fcode-asm
+#CXXFLAGS += -g -O0 -fno-inline
+#CXXFLAGS += -g -O3 -xB -openmp -finline -finline-functions
+#-finline-functions -Winline
+#LFLAGS += -ldad
+
+#CXXFLAGS += -pg
+
+LFLAGS += -lstdc++ -L/usr/lib 
+
+LFLAGS += -lvelocore -lglobal -lANN -lgsl -lgslcblas
+LFLAGS += -lstdc++
+
+ifeq (1,$(HAVE_IPP))
+LFLAGS += -L$(IPPROOT)/lib -L$(IPPROOT)/sharedlib -ljpeg.ipp -lippj -lippi \
+          -lipps -lippcore
+endif
+
+LINK = g++
+
+MODULE_NAME = GICP
+
+SOURCES = optimize.cpp gicp.cpp
+
+PUBLIC_INCLUDES = gicp.h
+PUBLIC_LIBRARIES = libgicp.a
+PUBLIC_BINARIES =
+
+TARGETS = libgicp.a test_gicp
+
+# rules
+libgicp.a: gicp.o optimize.o
+
+test_gicp: test_gicp.o gicp.o optimize.o
+
+include ../../../../race/src/Makefile.rules

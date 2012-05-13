@@ -1,0 +1,18 @@
+clear;
+clc;
+clf;
+
+load Rawlog_RGBD2DOdometry_ODO.txt;
+
+xs = cumsum(Rawlog_RGBD2DOdometry_ODO(:,1));
+ys = cumsum(Rawlog_RGBD2DOdometry_ODO(:,2));
+phis = cumsum(Rawlog_RGBD2DOdometry_ODO(:,3));
+
+for measureIndx=1:length(xs)
+
+x=xs(measureIndx);
+y=ys(measureIndx);
+phi=zs(measureIndx);
+plotPose(x,y,phi,0.05);
+
+end

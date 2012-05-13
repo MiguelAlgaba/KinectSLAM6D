@@ -1,0 +1,129 @@
+\hypertarget{class_graph_optimizer___g2_o}{
+\section{GraphOptimizer\_\-G2O Class Reference}
+\label{class_graph_optimizer___g2_o}\index{GraphOptimizer\_\-G2O@{GraphOptimizer\_\-G2O}}
+}
+
+
+{\ttfamily \#include $<$GraphOptimizer\_\-G2O.h$>$}
+
+Inheritance diagram for GraphOptimizer\_\-G2O:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_optimizer___g2_o}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_graph_optimizer___g2_o_ad1c9376f78767de3063170221e43859a}{addVertex} (Eigen::Matrix4f \&pose)
+\item 
+void \hyperlink{class_graph_optimizer___g2_o_a53c3edc42e43fef29e4a945141654391}{addEdge} (const int fromIdx, const int toIdx, Eigen::Matrix4f \&relPose, Eigen::Matrix$<$ double, 6, 6 $>$ \&infMatrix)
+\item 
+void \hyperlink{class_graph_optimizer___g2_o_a78dac310c50fdd61bcbcc64855fe6565}{optimizeGraph} ()
+\item 
+void \hyperlink{class_graph_optimizer___g2_o_ad30f6cd46b424482a7b26e41fb442f50}{getPoses} (std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&)
+\item 
+void \hyperlink{class_graph_optimizer___g2_o_ae0aff0bbd454803fb4a32fc5bdae1a2a}{saveGraph} (std::string fileName)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_graph_optimizer___g2_o_a0663a4b590a88e4191699283ec285a66}{
+int {\bfseries vertexIdx}}
+\label{class_graph_optimizer___g2_o_a0663a4b590a88e4191699283ec285a66}
+
+\item 
+\hypertarget{class_graph_optimizer___g2_o_a0ad18bf592cfd85ffb981773895672bb}{
+g2o::SparseOptimizer {\bfseries optimizer}}
+\label{class_graph_optimizer___g2_o_a0ad18bf592cfd85ffb981773895672bb}
+
+\item 
+\hypertarget{class_graph_optimizer___g2_o_a2e15c63ca4c846615b225c0de43cb02a}{
+g2o::BlockSolverX::LinearSolverType $\ast$ {\bfseries linearSolver}}
+\label{class_graph_optimizer___g2_o_a2e15c63ca4c846615b225c0de43cb02a}
+
+\item 
+\hypertarget{class_graph_optimizer___g2_o_a449d9cb7982ca7728b9e6703e8e99aac}{
+g2o::BlockSolverX $\ast$ {\bfseries solver\_\-ptr}}
+\label{class_graph_optimizer___g2_o_a449d9cb7982ca7728b9e6703e8e99aac}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class encapsulates the functionality of the G2O library to perform 6D graph optimization. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_graph_optimizer___g2_o_a53c3edc42e43fef29e4a945141654391}{
+\index{GraphOptimizer\_\-G2O@{GraphOptimizer\_\-G2O}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!GraphOptimizer_G2O@{GraphOptimizer\_\-G2O}}
+\subsubsection[{addEdge}]{\setlength{\rightskip}{0pt plus 5cm}void GraphOptimizer\_\-G2O::addEdge (
+\begin{DoxyParamCaption}
+\item[{const int}]{fromIdx, }
+\item[{const int}]{toIdx, }
+\item[{Eigen::Matrix4f \&}]{relPose, }
+\item[{Eigen::Matrix$<$ double, 6, 6 $>$ \&}]{infMatrix}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___g2_o_a53c3edc42e43fef29e4a945141654391}
+Adds an edge that defines a spatial constraint between the vertices \char`\"{}fromIdx\char`\"{} and \char`\"{}toIdx\char`\"{} with information matrix that determines the weight of the added edge. 
+
+Implements \hyperlink{class_graph_optimizer_a7bf9e4c2d3376bf8af5b15c86398950e}{GraphOptimizer}.
+
+\hypertarget{class_graph_optimizer___g2_o_ad1c9376f78767de3063170221e43859a}{
+\index{GraphOptimizer\_\-G2O@{GraphOptimizer\_\-G2O}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!GraphOptimizer_G2O@{GraphOptimizer\_\-G2O}}
+\subsubsection[{addVertex}]{\setlength{\rightskip}{0pt plus 5cm}int GraphOptimizer\_\-G2O::addVertex (
+\begin{DoxyParamCaption}
+\item[{Eigen::Matrix4f \&}]{pose}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___g2_o_ad1c9376f78767de3063170221e43859a}
+Adds a new vertex to the graph. The provided 4x4 matrix will be considered as the pose of the new added vertex. It returns the index of the added vertex. 
+
+Implements \hyperlink{class_graph_optimizer_a2acd85307e0c0a006a2360f9d7e29bce}{GraphOptimizer}.
+
+\hypertarget{class_graph_optimizer___g2_o_ad30f6cd46b424482a7b26e41fb442f50}{
+\index{GraphOptimizer\_\-G2O@{GraphOptimizer\_\-G2O}!getPoses@{getPoses}}
+\index{getPoses@{getPoses}!GraphOptimizer_G2O@{GraphOptimizer\_\-G2O}}
+\subsubsection[{getPoses}]{\setlength{\rightskip}{0pt plus 5cm}void GraphOptimizer\_\-G2O::getPoses (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ Eigen::Matrix4f, Eigen::aligned\_\-allocator$<$ Eigen::Matrix4f $>$ $>$ \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___g2_o_ad30f6cd46b424482a7b26e41fb442f50}
+Returns a vector with all the optimized poses of the graph. 
+
+Implements \hyperlink{class_graph_optimizer_a914f6c37de8dc6437122b3f563cce9a5}{GraphOptimizer}.
+
+\hypertarget{class_graph_optimizer___g2_o_a78dac310c50fdd61bcbcc64855fe6565}{
+\index{GraphOptimizer\_\-G2O@{GraphOptimizer\_\-G2O}!optimizeGraph@{optimizeGraph}}
+\index{optimizeGraph@{optimizeGraph}!GraphOptimizer_G2O@{GraphOptimizer\_\-G2O}}
+\subsubsection[{optimizeGraph}]{\setlength{\rightskip}{0pt plus 5cm}void GraphOptimizer\_\-G2O::optimizeGraph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___g2_o_a78dac310c50fdd61bcbcc64855fe6565}
+Calls the graph optimization process to determine the pose configuration that best satisfies the constraints defined by the edges. 
+
+Implements \hyperlink{class_graph_optimizer_ad1e8ac7c0aa9c90f3035c1d29036eedb}{GraphOptimizer}.
+
+\hypertarget{class_graph_optimizer___g2_o_ae0aff0bbd454803fb4a32fc5bdae1a2a}{
+\index{GraphOptimizer\_\-G2O@{GraphOptimizer\_\-G2O}!saveGraph@{saveGraph}}
+\index{saveGraph@{saveGraph}!GraphOptimizer_G2O@{GraphOptimizer\_\-G2O}}
+\subsubsection[{saveGraph}]{\setlength{\rightskip}{0pt plus 5cm}void GraphOptimizer\_\-G2O::saveGraph (
+\begin{DoxyParamCaption}
+\item[{std::string}]{fileName}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_graph_optimizer___g2_o_ae0aff0bbd454803fb4a32fc5bdae1a2a}
+Saves the graph to file. 
+
+Implements \hyperlink{class_graph_optimizer_a303a1e4e96fa44433ef48aa4051fab32}{GraphOptimizer}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+GraphOptimizer\_\-G2O.h\end{DoxyCompactItemize}

@@ -1,0 +1,479 @@
+#include "optimize.h"
+
+
+#ifdef _GICP_DEBUG_
+#include <iostream>
+#include <assert.h>
+#include <fstream>
+using namespace std;
+#endif
+
+
+namespace dgc {
+  namespace gicp {
+    
+    GICPOptimizer::GICPOptimizer() : T(gsl_multimin_fdfminimizer_vector_bfgs2) {
+      max_iter = 20;
+      iter = -1;
+      status = GSL_CONTINUE;
+      
+      gsl_minimizer = gsl_multimin_fdfminimizer_alloc(T, N);
+      if(gsl_minimizer == NULL) {
+	//TODO: handle
+      }
+      x = gsl_vector_alloc(N);
+      if(x == NULL) {
+	//TODO: handle
+      }
+      debug = false;
+    }
+
+    GICPOptimizer::~GICPOptimizer() {
+      if(gsl_minimizer != NULL) {
+	gsl_multimin_fdfminimizer_free(gsl_minimizer);
+      }
+      if(x != NULL) {
+	gsl_vector_free(x);
+      }
+    }
+    void GICPOptimizer::PlotError(dgc_transform_t t, GICPOptData &opt_data, const char* filename) {
+      ofstream fout(filename);
+      if(!fout) {
+	cout << "Could not open file for writing." << endl;
+	return;
+      }
+      double resolution = .005;
+      double min = -.3;
+      double max = 0;
+      
+      // initialize the starting point
+      double tx, ty, tz, rx, ry, rz;
+      dgc_transform_get_translation(t, &tx, &ty, &tz);
+      dgc_transform_get_rotation(t, &rx, &ry, &rz);
+      gsl_vector_set(x, 0, tx);
+      gsl_vector_set(x, 1, ty);
+      gsl_vector_set(x, 2, tz);
+      gsl_vector_set(x, 3, rx);
+      gsl_vector_set(x, 4, ry);
+      gsl_vector_set(x, 5, rz);
+      
+      dgc_transform_t temp;
+      
+      int N = (max-min)/resolution;
+      for(int i = 0; i < N; i++) {
+	double val = tz + min + resolution*i;
+	gsl_vector_set(x, 2, val);
+	
+	dgc_transform_copy(temp, opt_data.base_t);
+	apply_state(temp, x);
+	
+
+	double error = f(x, &opt_data);
+	fout << val << "\t" << error << endl;
+      }
+
+      fout.close();
+    }
+
+    bool GICPOptimizer::Optimize(dgc_transform_t t, GICPOptData & opt_data) {
+      double line_search_tol = .1;
+      double gradient_tol = 1e-4;
+      double step_size = .1;
+                  
+      // set up the gsl function_fdf struct
+      gsl_multimin_function_fdf func;
+      func.f = f;
+      func.df = df;
+      func.fdf = fdf;
+      func.n = N;
+      func.params = &opt_data;
+      
+      // initialize the starting point
+      double tx, ty, tz, rx, ry, rz;
+      dgc_transform_get_translation(t, &tx, &ty, &tz);
+      dgc_transform_get_rotation(t, &rx, &ry, &rz);
+      gsl_vector_set(x, 0, tx);
+      gsl_vector_set(x, 1, ty);
+      gsl_vector_set(x, 2, tz);
+      gsl_vector_set(x, 3, rx);
+      gsl_vector_set(x, 4, ry);
+      gsl_vector_set(x, 5, rz);
+      
+      // initialize the minimizer
+      gsl_multimin_fdfminimizer_set(gsl_minimizer, &func, x, step_size, line_search_tol);
+      
+      //iterate the minimization algorithm using gsl primatives
+      status = GSL_CONTINUE;
+      iter = 0;
+      if(debug) {
+	cout << "iter\t\tf-value\t\tstatus" << endl;
+	cout << iter << "\t\t" << gsl_minimizer->f << "\t\t" << Status() << endl;
+      }
+      while(status == GSL_CONTINUE && iter < max_iter) {
+	iter++;
+	status = gsl_multimin_fdfminimizer_iterate(gsl_minimizer);
+	if(debug) {
+	  cout << iter << "\t\t" << gsl_minimizer->f << "\t\t" << Status() <<endl;
+	}
+	rx = gsl_vector_get(gsl_minimizer->x, 3);
+	ry = gsl_vector_get(gsl_minimizer->x, 4);
+	rz = gsl_vector_get(gsl_minimizer->x, 5);
+	if(debug) {
+	  cout << "rx = " << rx
+	       << " ry = " << ry
+	       << " rz = " << rz << endl;
+	  
+	}
+	if(status) {
+	  break;
+	}
+	status = gsl_multimin_test_gradient (gsl_minimizer->gradient, gradient_tol);
+      }
+      
+      if(status == GSL_SUCCESS || iter == max_iter) {
+	//set t to the converged solution
+	
+	dgc_transform_identity(t);
+	// apply the current state to the base
+	apply_state(t, gsl_minimizer->x);
+	//dgc_transform_print(t, "converged to:");
+
+	
+
+	
+	return true;
+      }
+      else {
+	// the algorithm failed to converge
+	return false;
+      }
+    }
+    
+    // GICP cost function
+    double GICPOptimizer::f(const gsl_vector *x, void *params) {
+      GICPOptData *opt_data = (GICPOptData *)params;
+      double pt1[3];
+      double pt2[3]; 
+      double res[3]; // residual
+      double temp[3];
+      gsl_vector_view gsl_pt1 = gsl_vector_view_array(pt1, 3);
+      gsl_vector_view gsl_pt2 = gsl_vector_view_array(pt2, 3);
+      gsl_vector_view gsl_res = gsl_vector_view_array(res, 3);
+      gsl_vector_view gsl_temp = gsl_vector_view_array(temp, 3);
+      gsl_matrix_view gsl_M;
+      dgc_transform_t t;
+
+      // initialize the temp variable; if it happens to be NaN at start, bad things will happen in blas routines below
+      temp[0] = 0;
+      temp[1] = 0;
+      temp[2] = 0;
+      
+
+      // take the base transformation
+      dgc_transform_copy(t, opt_data->base_t); 
+      // apply the current state
+      apply_state(t, x);
+            
+      double f = 0;
+      double temp_double = 0;
+      int N = opt_data->p1->Size();
+      for(int i = 0; i < N; i++) {
+	int j = opt_data->nn_indecies[i];	
+	if(j != -1) {
+	  // get point 1
+	  pt1[0] = (*opt_data->p1)[i].x;
+	  pt1[1] = (*opt_data->p1)[i].y;
+	  pt1[2] = (*opt_data->p1)[i].z;
+	  
+	  // get point 2
+	  pt2[0] = (*opt_data->p2)[j].x;
+	  pt2[1] = (*opt_data->p2)[j].y;
+	  pt2[2] = (*opt_data->p2)[j].z;
+	  
+	  //get M-matrix
+	  gsl_M = gsl_matrix_view_array(&opt_data->M[i][0][0], 3, 3);
+	  
+	  
+	  //transform point 1
+	  dgc_transform_point(&pt1[0], &pt1[1], &pt1[2], t);
+	  res[0] = pt1[0] - pt2[0];
+	  res[1] = pt1[1] - pt2[1];
+	  res[2] = pt1[2] - pt2[2];
+
+	  //cout << "res: (" << res[0] << ", " <<res[1] <<", " << res[2] << ")" << endl;
+	  
+	  // temp := M*res
+	  gsl_blas_dsymv(CblasLower, 1., &gsl_M.matrix, &gsl_res.vector, 0., &gsl_temp.vector);
+	  // temp_double := res'*temp = temp'*M*temp
+	  gsl_blas_ddot(&gsl_res.vector, &gsl_temp.vector, &temp_double);
+	  // increment total error
+	  
+	  f += temp_double/(double)opt_data->num_matches;	  
+	  //cout << "temp: " << temp_double << endl;
+	  //cout << "f: " << f << "\t (" << opt_data->num_matches << ")" << endl;
+	  //print_gsl_matrix(&gsl_M.matrix, "M");
+	}
+      }
+      
+      return f;
+    }
+    void GICPOptimizer::df(const gsl_vector *x, void *params, gsl_vector *g) {
+      GICPOptData *opt_data = (GICPOptData *)params;
+      double pt1[3];
+      double pt2[3]; 
+      double res[3]; // residual
+      double temp[3]; // temp local vector
+      double temp_mat[9]; // temp matrix used for accumulating the rotation gradient
+      gsl_vector_view gsl_pt1 = gsl_vector_view_array(pt1, 3);
+      gsl_vector_view gsl_pt2 = gsl_vector_view_array(pt2, 3);
+      gsl_vector_view gsl_res = gsl_vector_view_array(res, 3);
+      gsl_vector_view gsl_temp = gsl_vector_view_array(temp, 3);
+      gsl_vector_view gsl_gradient_t = gsl_vector_subvector(g, 0, 3); // translation comp. of gradient
+      gsl_matrix_view gsl_temp_mat_r = gsl_matrix_view_array(temp_mat, 3, 3);
+      gsl_matrix_view gsl_M;
+      dgc_transform_t t;
+      double temp_double;
+      
+      // take the base transformation
+      dgc_transform_copy(t, opt_data->base_t); 
+      // apply the current state
+      apply_state(t, x);
+      
+      // zero all accumulator variables
+      gsl_vector_set_zero(g);
+      gsl_vector_set_zero(&gsl_temp.vector);
+      gsl_matrix_set_zero(&gsl_temp_mat_r.matrix);
+            
+      for(int i = 0; i < opt_data->p1->Size(); i++) {
+	int j = opt_data->nn_indecies[i];	
+	if(j != -1) {
+	  // get point 1
+	  pt1[0] = (*opt_data->p1)[i].x;
+	  pt1[1] = (*opt_data->p1)[i].y;
+	  pt1[2] = (*opt_data->p1)[i].z;
+	  
+	  // get point 2
+	  pt2[0] = (*opt_data->p2)[j].x;
+	  pt2[1] = (*opt_data->p2)[j].y;
+	  pt2[2] = (*opt_data->p2)[j].z;
+	  
+	  //get M-matrix
+	  gsl_M = gsl_matrix_view_array(&opt_data->M[i][0][0], 3, 3);	  
+
+	  //transform point 1
+	  dgc_transform_point(&pt1[0], &pt1[1], &pt1[2], t);
+	  res[0] = pt1[0] - pt2[0];
+	  res[1] = pt1[1] - pt2[1];
+	  res[2] = pt1[2] - pt2[2];
+	  
+	  // temp := M*res
+	  gsl_blas_dsymv(CblasLower, 1., &gsl_M.matrix, &gsl_res.vector, 0., &gsl_temp.vector);
+	  // temp_double := res'*temp = temp'*M*res
+	  gsl_blas_ddot(&gsl_res.vector, &gsl_temp.vector, &temp_double);
+
+	  // increment total translation gradient:
+	  // gsl_gradient_t += 2*M*res/num_matches
+	  gsl_blas_dsymv(CblasLower, 2./(double)opt_data->num_matches, &gsl_M.matrix, &gsl_res.vector, 1., &gsl_gradient_t.vector);	  
+	  
+	  if(opt_data->solve_rotation) {
+	    // compute rotation gradient here
+	    // get back the original untransformed point to compute the rotation gradient
+	    pt1[0] = (*opt_data->p1)[i].x;
+	    pt1[1] = (*opt_data->p1)[i].y;
+	    pt1[2] = (*opt_data->p1)[i].z;
+	    dgc_transform_point(&pt1[0], &pt1[1], &pt1[2], opt_data->base_t);
+	    gsl_blas_dger(2./(double)opt_data->num_matches, &gsl_pt1.vector, &gsl_temp.vector, &gsl_temp_mat_r.matrix);
+	  }
+	}
+      }
+      // the above loop sets up the gradient with respect to the translation, and the matrix derivative w.r.t. the rotation matrix
+      // this code sets up the matrix derivatives dR/dPhi, dR/dPsi, dR/dTheta. i.e. the derivatives of the whole rotation matrix with respect to the euler angles
+      // note that this code assumes the XYZ order of euler angles, with the Z rotation corresponding to bearing. This means the Z angle is negative of what it would be
+      // in the regular XYZ euler-angle convention.
+      
+      // now use the d/dR matrix to compute the derivative with respect to euler angles and put it directly into g[3], g[4], g[5];
+      if(opt_data->solve_rotation) {
+	compute_dr(x, &gsl_temp_mat_r.matrix, g);
+      }
+    }
+    
+    void GICPOptimizer::fdf(const gsl_vector *x, void *params, double * f, gsl_vector *g) {
+      GICPOptData *opt_data = (GICPOptData *)params;
+      double pt1[3];
+      double pt2[3]; 
+      double res[3]; // residual
+      double temp[3]; // temp local vector
+      double temp_mat[9]; // temp matrix used for accumulating the rotation gradient
+      gsl_vector_view gsl_pt1 = gsl_vector_view_array(pt1, 3);
+      gsl_vector_view gsl_pt2 = gsl_vector_view_array(pt2, 3);
+      gsl_vector_view gsl_res = gsl_vector_view_array(res, 3);
+      gsl_vector_view gsl_temp = gsl_vector_view_array(temp, 3);
+      gsl_vector_view gsl_gradient_t = gsl_vector_subvector(g, 0, 3); // translation comp. of gradient
+      gsl_vector_view gsl_gradient_r = gsl_vector_subvector(g, 3, 3); // rotation comp. of gradient
+      gsl_matrix_view gsl_temp_mat_r = gsl_matrix_view_array(temp_mat, 3, 3);
+      gsl_matrix_view gsl_M;
+      dgc_transform_t t;
+      double temp_double;
+
+      // take the base transformation
+      dgc_transform_copy(t, opt_data->base_t); 
+      // apply the current state      
+      apply_state(t, x);
+            
+      // zero all accumulator variables
+      *f = 0;
+      gsl_vector_set_zero(g);
+      gsl_vector_set_zero(&gsl_temp.vector);
+      gsl_matrix_set_zero(&gsl_temp_mat_r.matrix);
+      
+      for(int i = 0; i < opt_data->p1->Size(); i++) {
+	int j = opt_data->nn_indecies[i];	
+	if(j != -1) {
+	  // get point 1
+	  pt1[0] = (*opt_data->p1)[i].x;
+	  pt1[1] = (*opt_data->p1)[i].y;
+	  pt1[2] = (*opt_data->p1)[i].z;
+	  
+	  // get point 2
+	  pt2[0] = (*opt_data->p2)[j].x;
+	  pt2[1] = (*opt_data->p2)[j].y;
+	  pt2[2] = (*opt_data->p2)[j].z;
+	  
+	  //cout << "accessing " << i << " of " << opt_data->p1->Size() << ", " << opt_data->p2->Size() << endl;
+	  //get M-matrix
+	  gsl_M = gsl_matrix_view_array(&opt_data->M[i][0][0], 3, 3);	  
+	  
+	  //transform point 1
+	  dgc_transform_point(&pt1[0], &pt1[1], &pt1[2], t);
+	  res[0] = pt1[0] - pt2[0];
+	  res[1] = pt1[1] - pt2[1];
+	  res[2] = pt1[2] - pt2[2];
+	  
+	  // compute the transformed residual
+	  // temp := M*res
+	  //print_gsl_matrix(&gsl_M.matrix, "gsl_m");
+	  gsl_blas_dsymv(CblasLower, 1., &gsl_M.matrix, &gsl_res.vector, 0., &gsl_temp.vector);
+	  
+	  // compute M-norm of the residual
+	  // temp_double := res'*temp = temp'*M*res
+	  gsl_blas_ddot(&gsl_res.vector, &gsl_temp.vector, &temp_double);
+	  
+	  // accumulate total error: f += res'*M*res
+	  *f += temp_double/(double)opt_data->num_matches;
+	  
+	  // accumulate translation gradient:
+	  // gsl_gradient_t += 2*M*res
+	  gsl_blas_dsymv(CblasLower, 2./(double)opt_data->num_matches, &gsl_M.matrix, &gsl_res.vector, 1., &gsl_gradient_t.vector);	  
+	  
+	  if(opt_data->solve_rotation) {
+	    // accumulate the rotation gradient matrix
+	    // get back the original untransformed point to compute the rotation gradient
+	    pt1[0] = (*opt_data->p1)[i].x;
+	    pt1[1] = (*opt_data->p1)[i].y;
+	    pt1[2] = (*opt_data->p1)[i].z;
+	    dgc_transform_point(&pt1[0], &pt1[1], &pt1[2], opt_data->base_t);
+	    // gsl_temp_mat_r += 2*(gsl_temp).(gsl_pt1)' [ = (2*M*residual).(gsl_pt1)' ]	  
+	    gsl_blas_dger(2./(double)opt_data->num_matches, &gsl_pt1.vector, &gsl_temp.vector, &gsl_temp_mat_r.matrix); 
+	  }
+	}
+      }      
+      // the above loop sets up the gradient with respect to the translation, and the matrix derivative w.r.t. the rotation matrix
+      // this code sets up the matrix derivatives dR/dPhi, dR/dPsi, dR/dTheta. i.e. the derivatives of the whole rotation matrix with respect to the euler angles
+      // note that this code assumes the XYZ order of euler angles, with the Z rotation corresponding to bearing. This means the Z angle is negative of what it would be
+      // in the regular XYZ euler-angle convention.
+      if(opt_data->solve_rotation) {
+	// now use the d/dR matrix to compute the derivative with respect to euler angles and put it directly into g[3], g[4], g[5];
+	compute_dr(x, &gsl_temp_mat_r.matrix, g);
+      }
+    }
+
+    void GICPOptimizer::compute_dr(gsl_vector const* x, gsl_matrix const* gsl_temp_mat_r, gsl_vector *g) {
+      double dR_dPhi[3][3];
+      double dR_dTheta[3][3];
+      double dR_dPsi[3][3];
+      gsl_matrix_view gsl_d_rx = gsl_matrix_view_array(&dR_dPhi[0][0],3, 3);
+      gsl_matrix_view gsl_d_ry = gsl_matrix_view_array(&dR_dTheta[0][0],3, 3);
+      gsl_matrix_view gsl_d_rz = gsl_matrix_view_array(&dR_dPsi[0][0],3, 3);
+
+      double phi = gsl_vector_get(x ,3);
+      double theta = gsl_vector_get(x ,4);
+      double psi = gsl_vector_get(x ,5);  
+      
+      double cphi = cos(phi), sphi = sin(phi);
+      double ctheta = cos(theta), stheta = sin(theta);
+      double cpsi = cos(psi), spsi = sin(psi);
+      
+      dR_dPhi[0][0] = 0.;
+      dR_dPhi[1][0] = 0.;
+      dR_dPhi[2][0] = 0.;
+      
+      dR_dPhi[0][1] = sphi*spsi + cphi*cpsi*stheta;
+      dR_dPhi[1][1] = -cpsi*sphi + cphi*spsi*stheta;
+      dR_dPhi[2][1] = cphi*ctheta;
+      
+      dR_dPhi[0][2] = cphi*spsi - cpsi*sphi*stheta;
+      dR_dPhi[1][2] = -cphi*cpsi - sphi*spsi*stheta;
+      dR_dPhi[2][2] = -ctheta*sphi;
+      
+      dR_dTheta[0][0] = -cpsi*stheta;
+      dR_dTheta[1][0] = -spsi*stheta;
+      dR_dTheta[2][0] = -ctheta;
+      
+      dR_dTheta[0][1] = cpsi*ctheta*sphi;
+      dR_dTheta[1][1] = ctheta*sphi*spsi;
+      dR_dTheta[2][1] = -sphi*stheta;
+	
+      dR_dTheta[0][2] = cphi*cpsi*ctheta;
+      dR_dTheta[1][2] = cphi*ctheta*spsi;
+      dR_dTheta[2][2] = -cphi*stheta;
+      
+      dR_dPsi[0][0] = -ctheta*spsi;
+      dR_dPsi[1][0] = cpsi*ctheta;
+      dR_dPsi[2][0] = 0.;
+      
+      dR_dPsi[0][1] = -cphi*cpsi - sphi*spsi*stheta;
+      dR_dPsi[1][1] = -cphi*spsi + cpsi*sphi*stheta;
+      dR_dPsi[2][1] = 0.;
+      
+      dR_dPsi[0][2] = cpsi*sphi - cphi*spsi*stheta;
+      dR_dPsi[1][2] = sphi*spsi + cphi*cpsi*stheta;
+      dR_dPsi[2][2] = 0.;
+      
+      // set d/d_rx = tr(dR_dPhi'*gsl_temp_mat_r) [= <dR_dPhi, gsl_temp_mat_r>]
+      gsl_vector_set(g, 3, mat_inner_prod(&gsl_d_rx.matrix, gsl_temp_mat_r));
+      // set d/d_ry = tr(dR_dTheta'*gsl_temp_mat_r) = [<dR_dTheta, gsl_temp_mat_r>]
+      gsl_vector_set(g, 4, mat_inner_prod(&gsl_d_ry.matrix, gsl_temp_mat_r));
+      // set d/d_rz = tr(dR_dPsi'*gsl_temp_mat_r) = [<dR_dPsi, gsl_temp_mat_r>]
+      gsl_vector_set(g, 5, mat_inner_prod(&gsl_d_rz.matrix, gsl_temp_mat_r));      
+
+    }
+
+    double GICPOptimizer::mat_inner_prod(gsl_matrix const* mat1, gsl_matrix const* mat2) {
+      double r = 0.;
+      int n = mat1->size1;
+      
+      for(int i = 0; i < n; i++) {
+	for(int j = 0; j < n; j++) { // tr(mat1^t.mat2)
+	  r += gsl_matrix_get(mat1, j, i)*gsl_matrix_get(mat2, i, j);
+	}
+      }
+      
+      return r;
+    }
+    
+    void GICPOptimizer::apply_state(dgc_transform_t t, gsl_vector const* x) {
+      double tx, ty, tz, rx, ry, rz;
+      tx = gsl_vector_get(x, 0);
+      ty = gsl_vector_get(x, 1);
+      tz = gsl_vector_get(x, 2);
+      rx = gsl_vector_get(x, 3);
+      ry = gsl_vector_get(x, 4);
+      rz = gsl_vector_get(x, 5);
+
+      dgc_transform_rotate_x(t, rx);
+      dgc_transform_rotate_y(t, ry);
+      dgc_transform_rotate_z(t, rz);      
+      dgc_transform_translate(t, tx, ty, tz);
+    }
+  }
+}

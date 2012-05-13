@@ -1,0 +1,115 @@
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c}{
+\section{Visual3DRigidTransformationEstimator\_\-RANSAC Class Reference}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c}\index{Visual3DRigidTransformationEstimator\_\-RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}}
+}
+
+
+{\ttfamily \#include $<$Visual3DRigidTransformationEstimator\_\-RANSAC.h$>$}
+
+Inheritance diagram for Visual3DRigidTransformationEstimator\_\-RANSAC:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_a73fc605acb5765ffe6bef88b3c025625}{Visual3DRigidTransformationEstimator\_\-RANSAC} (const double=0.05, const double=10.0)
+\item 
+void \hyperlink{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_adc981ee0d2fc15c0c5273cfbc7a353b0}{setMinDepthValue} (const double)
+\item 
+void \hyperlink{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_af74500de40c35f98785de01a3baf5143}{setMaxDepthValue} (const double)
+\item 
+int \hyperlink{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_a1e97ade711022e984566bbed9561a46a}{estimateVisual3DRigidTransformation} (const std::vector$<$ cv::Point2f $>$ \&points1, const std::vector$<$ cv::Point2f $>$ \&points2, const pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&pointCloudPtr1, const pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&pointCloudPtr2, Eigen::Matrix4f \&rigidTransformation)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_aaee81e09d6622e1a5a69f9f1c341884a}{
+void {\bfseries matchesWith3DValidData} (const std::vector$<$ cv::Point2f $>$ \&, const std::vector$<$ cv::Point2f $>$ \&, const pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&, const pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&)}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_aaee81e09d6622e1a5a69f9f1c341884a}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_a213b24bc3de5c061791cedd48e5343fa}{
+pcl::registration::CorrespondenceRejectorSampleConsensus$<$ pcl::PointXYZRGB $>$ {\bfseries corrsRejectorSAC}}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_a213b24bc3de5c061791cedd48e5343fa}
+
+\item 
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_aac560055af9973e994c79debbc39ae72}{
+boost::shared\_\-ptr$<$ pcl::Correspondences $>$ {\bfseries correspondences}}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_aac560055af9973e994c79debbc39ae72}
+
+\item 
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_aed18e1b68f2b6cf19fc81af88b6fbe63}{
+double {\bfseries minDepthValue}}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_aed18e1b68f2b6cf19fc81af88b6fbe63}
+
+\item 
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_afae1bb594a06159e76b9808d7d329655}{
+double {\bfseries maxDepthValue}}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_afae1bb594a06159e76b9808d7d329655}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class encapsulates the functionality of a 3D rigid transformation estimator to compute a rigid transformation robust to incorrect correspondences (RANSAC) using the PCL registration module. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_a73fc605acb5765ffe6bef88b3c025625}{
+\index{Visual3DRigidTransformationEstimator\_\-RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}!Visual3DRigidTransformationEstimator\_\-RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}}
+\index{Visual3DRigidTransformationEstimator\_\-RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}!Visual3DRigidTransformationEstimator_RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}}
+\subsubsection[{Visual3DRigidTransformationEstimator\_\-RANSAC}]{\setlength{\rightskip}{0pt plus 5cm}Visual3DRigidTransformationEstimator\_\-RANSAC::Visual3DRigidTransformationEstimator\_\-RANSAC (
+\begin{DoxyParamCaption}
+\item[{const double}]{ = {\ttfamily 0.05}, }
+\item[{const double}]{ = {\ttfamily 10.0}}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_a73fc605acb5765ffe6bef88b3c025625}
+Constructor of an instance of \hyperlink{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c}{Visual3DRigidTransformationEstimator\_\-RANSAC} with a given minDepthValue and maxDepthValue that specifies a valid range of 3D points (in meters). 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_a1e97ade711022e984566bbed9561a46a}{
+\index{Visual3DRigidTransformationEstimator\_\-RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}!estimateVisual3DRigidTransformation@{estimateVisual3DRigidTransformation}}
+\index{estimateVisual3DRigidTransformation@{estimateVisual3DRigidTransformation}!Visual3DRigidTransformationEstimator_RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}}
+\subsubsection[{estimateVisual3DRigidTransformation}]{\setlength{\rightskip}{0pt plus 5cm}int Visual3DRigidTransformationEstimator\_\-RANSAC::estimateVisual3DRigidTransformation (
+\begin{DoxyParamCaption}
+\item[{const std::vector$<$ cv::Point2f $>$ \&}]{points1, }
+\item[{const std::vector$<$ cv::Point2f $>$ \&}]{points2, }
+\item[{const pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{pointCloudPtr1, }
+\item[{const pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{pointCloudPtr2, }
+\item[{Eigen::Matrix4f \&}]{rigidTransformation}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_a1e97ade711022e984566bbed9561a46a}
+Estimates the 3D rigid transformation that best align a pair of 3D point correspondences of two given point clouds. The method takes two vectors of 2D points that determines the pairs of correspondences and two 3D point clouds. The algorithm then takes the 3D points corresponding to the 2D correspondences to estimate the 3D rigid transformation. The algorithm uses RANSAC to make the method robust to outliers. 
+
+Implements \hyperlink{class_visual3_d_rigid_transformation_estimator_a2f431dce774df16f4950840ec1d1f37c}{Visual3DRigidTransformationEstimator}.
+
+\hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_af74500de40c35f98785de01a3baf5143}{
+\index{Visual3DRigidTransformationEstimator\_\-RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}!setMaxDepthValue@{setMaxDepthValue}}
+\index{setMaxDepthValue@{setMaxDepthValue}!Visual3DRigidTransformationEstimator_RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}}
+\subsubsection[{setMaxDepthValue}]{\setlength{\rightskip}{0pt plus 5cm}void Visual3DRigidTransformationEstimator\_\-RANSAC::setMaxDepthValue (
+\begin{DoxyParamCaption}
+\item[{const double}]{}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_af74500de40c35f98785de01a3baf5143}
+Sets the maxDepthValue to the specified value (in meters) \hypertarget{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_adc981ee0d2fc15c0c5273cfbc7a353b0}{
+\index{Visual3DRigidTransformationEstimator\_\-RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}!setMinDepthValue@{setMinDepthValue}}
+\index{setMinDepthValue@{setMinDepthValue}!Visual3DRigidTransformationEstimator_RANSAC@{Visual3DRigidTransformationEstimator\_\-RANSAC}}
+\subsubsection[{setMinDepthValue}]{\setlength{\rightskip}{0pt plus 5cm}void Visual3DRigidTransformationEstimator\_\-RANSAC::setMinDepthValue (
+\begin{DoxyParamCaption}
+\item[{const double}]{}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual3_d_rigid_transformation_estimator___r_a_n_s_a_c_adc981ee0d2fc15c0c5273cfbc7a353b0}
+Sets the minDepthValue to the specified value (in meters) 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+Visual3DRigidTransformationEstimator\_\-RANSAC.h\end{DoxyCompactItemize}

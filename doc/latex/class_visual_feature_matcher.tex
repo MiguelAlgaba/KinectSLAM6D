@@ -1,0 +1,45 @@
+\hypertarget{class_visual_feature_matcher}{
+\section{VisualFeatureMatcher Class Reference}
+\label{class_visual_feature_matcher}\index{VisualFeatureMatcher@{VisualFeatureMatcher}}
+}
+
+
+{\ttfamily \#include $<$VisualFeatureMatcher.h$>$}
+
+Inheritance diagram for VisualFeatureMatcher:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_visual_feature_matcher}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_visual_feature_matcher_a4e70d34d256b19bf4a1dbc1ee14c0e91}{match} (const cv::Mat \&descriptors1, const cv::Mat \&descriptors2, std::vector$<$ cv::DMatch $>$ \&matches)=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract class that specifies a method to perform 2D visual feature matching. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_visual_feature_matcher_a4e70d34d256b19bf4a1dbc1ee14c0e91}{
+\index{VisualFeatureMatcher@{VisualFeatureMatcher}!match@{match}}
+\index{match@{match}!VisualFeatureMatcher@{VisualFeatureMatcher}}
+\subsubsection[{match}]{\setlength{\rightskip}{0pt plus 5cm}virtual void VisualFeatureMatcher::match (
+\begin{DoxyParamCaption}
+\item[{const cv::Mat \&}]{descriptors1, }
+\item[{const cv::Mat \&}]{descriptors2, }
+\item[{std::vector$<$ cv::DMatch $>$ \&}]{matches}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_visual_feature_matcher_a4e70d34d256b19bf4a1dbc1ee14c0e91}
+Performs descriptors matching and returns a vector of 2D matches. For every descriptor in descriptors1, the method computes the nearest descriptor in descriptors2. 
+
+Implemented in \hyperlink{class_visual_feature_matcher___generic_a8c45652a033f333938f5440486cd6fa9}{VisualFeatureMatcher\_\-Generic}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+VisualFeatureMatcher.h\end{DoxyCompactItemize}

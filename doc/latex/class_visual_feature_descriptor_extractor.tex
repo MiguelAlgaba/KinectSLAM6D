@@ -1,0 +1,64 @@
+\hypertarget{class_visual_feature_descriptor_extractor}{
+\section{VisualFeatureDescriptorExtractor Class Reference}
+\label{class_visual_feature_descriptor_extractor}\index{VisualFeatureDescriptorExtractor@{VisualFeatureDescriptorExtractor}}
+}
+
+
+{\ttfamily \#include $<$VisualFeatureDescriptorExtractor.h$>$}
+
+Inheritance diagram for VisualFeatureDescriptorExtractor:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.333333cm]{class_visual_feature_descriptor_extractor}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_visual_feature_descriptor_extractor_a7852b85032fb28acdc73295dbda973ff}{setInputImage} (const cv::Mat \&image)
+\item 
+virtual void \hyperlink{class_visual_feature_descriptor_extractor_aac4d313540ff83e03fb5b0a0952fc0f4}{detectKeypointsAndComputeDescriptors} (std::vector$<$ cv::KeyPoint $>$ \&keypoints, cv::Mat \&descriptors, std::vector$<$ float $>$ \&descriptors\_\-aux)=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_visual_feature_descriptor_extractor_a1238e32b54e5a0dcbd19f89f2d4becf7}{
+cv::Mat {\bfseries inputImage}}
+\label{class_visual_feature_descriptor_extractor_a1238e32b54e5a0dcbd19f89f2d4becf7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract class \hyperlink{class_visual_feature_descriptor_extractor}{VisualFeatureDescriptorExtractor} that especifies the functionality of a generic visual 2D feature detector and descriptor extractor. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_visual_feature_descriptor_extractor_aac4d313540ff83e03fb5b0a0952fc0f4}{
+\index{VisualFeatureDescriptorExtractor@{VisualFeatureDescriptorExtractor}!detectKeypointsAndComputeDescriptors@{detectKeypointsAndComputeDescriptors}}
+\index{detectKeypointsAndComputeDescriptors@{detectKeypointsAndComputeDescriptors}!VisualFeatureDescriptorExtractor@{VisualFeatureDescriptorExtractor}}
+\subsubsection[{detectKeypointsAndComputeDescriptors}]{\setlength{\rightskip}{0pt plus 5cm}virtual void VisualFeatureDescriptorExtractor::detectKeypointsAndComputeDescriptors (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints, }
+\item[{cv::Mat \&}]{descriptors, }
+\item[{std::vector$<$ float $>$ \&}]{descriptors\_\-aux}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_visual_feature_descriptor_extractor_aac4d313540ff83e03fb5b0a0952fc0f4}
+Performs feature detection and descriptor extraction over the image provided by the method setInputImage. 
+
+Implemented in \hyperlink{class_visual_feature_descriptor_extractor___generic_adec3d1c762c1010c2e95101822f688b7}{VisualFeatureDescriptorExtractor\_\-Generic}, \hyperlink{class_visual_feature_descriptor_extractor___o_r_b_a2cded6e20e202bb6f2db3a64edeaffcf}{VisualFeatureDescriptorExtractor\_\-ORB}, and \hyperlink{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_aef7ddf1d1e42267ba7b5d06a0a36e58f}{VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU}.
+
+\hypertarget{class_visual_feature_descriptor_extractor_a7852b85032fb28acdc73295dbda973ff}{
+\index{VisualFeatureDescriptorExtractor@{VisualFeatureDescriptorExtractor}!setInputImage@{setInputImage}}
+\index{setInputImage@{setInputImage}!VisualFeatureDescriptorExtractor@{VisualFeatureDescriptorExtractor}}
+\subsubsection[{setInputImage}]{\setlength{\rightskip}{0pt plus 5cm}virtual void VisualFeatureDescriptorExtractor::setInputImage (
+\begin{DoxyParamCaption}
+\item[{const cv::Mat \&}]{image}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}
+\label{class_visual_feature_descriptor_extractor_a7852b85032fb28acdc73295dbda973ff}
+Sets the input image to which the keypoints and descriptors will be computed. 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+VisualFeatureDescriptorExtractor.h\end{DoxyCompactItemize}

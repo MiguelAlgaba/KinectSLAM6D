@@ -1,0 +1,145 @@
+\hypertarget{class_kinect_grabber___m_r_p_t}{
+\section{KinectGrabber\_\-MRPT Class Reference}
+\label{class_kinect_grabber___m_r_p_t}\index{KinectGrabber\_\-MRPT@{KinectGrabber\_\-MRPT}}
+}
+
+
+{\ttfamily \#include $<$KinectGrabber\_\-MRPT.h$>$}
+
+Inheritance diagram for KinectGrabber\_\-MRPT:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_kinect_grabber___m_r_p_t}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_kinect_grabber___m_r_p_t_1_1_t_thread_param}{TThreadParam}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_kinect_grabber___m_r_p_t_a11aee26f0e640ca8b43f629b838a43a9}{getCurrentColouredPointCloudPtr} (pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&colouredPointCloudPtr)
+\item 
+void \hyperlink{class_kinect_grabber___m_r_p_t_acd8b9e162fa31c4f1940fbea6bdd9669}{filterPointCloud} (pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&colouredPointCloudPtr, pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&downsampledPointCloudPtr)
+\item 
+void \hyperlink{class_kinect_grabber___m_r_p_t_adf243a3557ff0347c7eee98c0c2a309b}{getCurrentIntensityImage} (cv::Mat \&intensityImage)
+\item 
+void \hyperlink{class_kinect_grabber___m_r_p_t_ac5997c6197eed0f9bd0977f45a5d5928}{grab} ()
+\item 
+void \hyperlink{class_kinect_grabber___m_r_p_t_a9fee110b324eab5a7e852509643a101f}{stopGrabber} ()
+\item 
+void \hyperlink{class_kinect_grabber___m_r_p_t_a64ec507059096493aa6c1c172b31b651}{getCurrentFrameRGBD} (\hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_kinect_grabber___m_r_p_t_ac5c832a0409b5da3777f0266e84ef978}{
+\hyperlink{struct_kinect_grabber___m_r_p_t_1_1_t_thread_param}{TThreadParam} $\ast$ {\bfseries thrParPtr}}
+\label{class_kinect_grabber___m_r_p_t_ac5c832a0409b5da3777f0266e84ef978}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_kinect_grabber___m_r_p_t_a6c0a144f3022d3a63d13dc96e3f4458d}{
+CObservation3DRangeScanPtr {\bfseries currentObservationPtr}}
+\label{class_kinect_grabber___m_r_p_t_a6c0a144f3022d3a63d13dc96e3f4458d}
+
+\item 
+\hypertarget{class_kinect_grabber___m_r_p_t_aea9a7c992f3236da3c3b35acca25fdba}{
+mrpt::system::TThreadHandle {\bfseries thHandle}}
+\label{class_kinect_grabber___m_r_p_t_aea9a7c992f3236da3c3b35acca25fdba}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class captures RGBD frames from the Kinect sensor using the MRPT library to access the sensor data. It grabs the intensity image as well as its corresponding 3D point cloud. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_kinect_grabber___m_r_p_t_acd8b9e162fa31c4f1940fbea6bdd9669}{
+\index{KinectGrabber\_\-MRPT@{KinectGrabber\_\-MRPT}!filterPointCloud@{filterPointCloud}}
+\index{filterPointCloud@{filterPointCloud}!KinectGrabber_MRPT@{KinectGrabber\_\-MRPT}}
+\subsubsection[{filterPointCloud}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-MRPT::filterPointCloud (
+\begin{DoxyParamCaption}
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{colouredPointCloudPtr, }
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{downsampledPointCloudPtr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___m_r_p_t_acd8b9e162fa31c4f1940fbea6bdd9669}
+Returns a downsampled version of the provided 3D point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a3faafcbdbb136dd2c6b51d51eed9e147}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___m_r_p_t_a11aee26f0e640ca8b43f629b838a43a9}{
+\index{KinectGrabber\_\-MRPT@{KinectGrabber\_\-MRPT}!getCurrentColouredPointCloudPtr@{getCurrentColouredPointCloudPtr}}
+\index{getCurrentColouredPointCloudPtr@{getCurrentColouredPointCloudPtr}!KinectGrabber_MRPT@{KinectGrabber\_\-MRPT}}
+\subsubsection[{getCurrentColouredPointCloudPtr}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-MRPT::getCurrentColouredPointCloudPtr (
+\begin{DoxyParamCaption}
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{colouredPointCloudPtr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___m_r_p_t_a11aee26f0e640ca8b43f629b838a43a9}
+Returns the current 3D coloured point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a053e560dfd15e6123d19e4aa20b19585}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___m_r_p_t_a64ec507059096493aa6c1c172b31b651}{
+\index{KinectGrabber\_\-MRPT@{KinectGrabber\_\-MRPT}!getCurrentFrameRGBD@{getCurrentFrameRGBD}}
+\index{getCurrentFrameRGBD@{getCurrentFrameRGBD}!KinectGrabber_MRPT@{KinectGrabber\_\-MRPT}}
+\subsubsection[{getCurrentFrameRGBD}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-MRPT::getCurrentFrameRGBD (
+\begin{DoxyParamCaption}
+\item[{{\bf FrameRGBD} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___m_r_p_t_a64ec507059096493aa6c1c172b31b651}
+Returns a RGBD frame containing the intensity image and 3D point cloud. It also computes a downsampled version of the 3D point cloud and adds it to the returned RGBD frame. 
+
+Implements \hyperlink{class_kinect_grabber_abca25bbc3ddc8bc99dc1c84df48ae9f2}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___m_r_p_t_adf243a3557ff0347c7eee98c0c2a309b}{
+\index{KinectGrabber\_\-MRPT@{KinectGrabber\_\-MRPT}!getCurrentIntensityImage@{getCurrentIntensityImage}}
+\index{getCurrentIntensityImage@{getCurrentIntensityImage}!KinectGrabber_MRPT@{KinectGrabber\_\-MRPT}}
+\subsubsection[{getCurrentIntensityImage}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-MRPT::getCurrentIntensityImage (
+\begin{DoxyParamCaption}
+\item[{cv::Mat \&}]{intensityImage}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___m_r_p_t_adf243a3557ff0347c7eee98c0c2a309b}
+Returns the current intensity image provided by the RGB camera. 
+
+Implements \hyperlink{class_kinect_grabber_a47a54afb0a188cdd02f3cf79d503b3dd}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___m_r_p_t_ac5997c6197eed0f9bd0977f45a5d5928}{
+\index{KinectGrabber\_\-MRPT@{KinectGrabber\_\-MRPT}!grab@{grab}}
+\index{grab@{grab}!KinectGrabber_MRPT@{KinectGrabber\_\-MRPT}}
+\subsubsection[{grab}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-MRPT::grab (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___m_r_p_t_ac5997c6197eed0f9bd0977f45a5d5928}
+Retains the current intensity image and its corresponding 3D point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a0274f336f9aee07bca08bd673cf9377a}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___m_r_p_t_a9fee110b324eab5a7e852509643a101f}{
+\index{KinectGrabber\_\-MRPT@{KinectGrabber\_\-MRPT}!stopGrabber@{stopGrabber}}
+\index{stopGrabber@{stopGrabber}!KinectGrabber_MRPT@{KinectGrabber\_\-MRPT}}
+\subsubsection[{stopGrabber}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-MRPT::stopGrabber (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___m_r_p_t_a9fee110b324eab5a7e852509643a101f}
+Stop grabing RGBD frames. 
+
+Implements \hyperlink{class_kinect_grabber_af7d0fcdc2f85f84cb38469095882d688}{KinectGrabber}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+KinectGrabber\_\-MRPT.h\end{DoxyCompactItemize}

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/cvpr-ros-pkg/!svn/ver/202/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools
+END
+generate_pointcloud.py
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/cvpr-ros-pkg/!svn/ver/190/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/generate_pointcloud.py
+END
+associate.py
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/cvpr-ros-pkg/!svn/ver/184/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/associate.py
+END
+evaluate_rpe.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/cvpr-ros-pkg/!svn/ver/199/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/evaluate_rpe.py
+END
+evaluate_ate.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/cvpr-ros-pkg/!svn/ver/202/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/evaluate_ate.py
+END
+plot_trajectory_into_image.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/cvpr-ros-pkg/!svn/ver/201/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/plot_trajectory_into_image.py
+END
+add_pointclouds_to_bagfile.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/cvpr-ros-pkg/!svn/ver/171/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/add_pointclouds_to_bagfile.py
+END
+generate_registered_pointcloud.py
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/cvpr-ros-pkg/!svn/ver/202/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/generate_registered_pointcloud.py
+END

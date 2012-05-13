@@ -1,0 +1,72 @@
+\hypertarget{class_frame_r_g_b_d}{
+\section{FrameRGBD Class Reference}
+\label{class_frame_r_g_b_d}\index{FrameRGBD@{FrameRGBD}}
+}
+
+
+{\ttfamily \#include $<$FrameRGBD.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_frame_r_g_b_d_ac3f882e82c847c18e817c988f1f47e6f}{computeGICPNormalMatrices} (const double=1e-\/3)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \hyperlink{class_frame_r_g_b_d_a03899f04e6597201e13fb2e046fd0983}{pointCloudPtr}
+\item 
+pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \hyperlink{class_frame_r_g_b_d_a7c5a9dcf60d9ee1ac6d4d707257e965f}{downsampledPointCloudPtr}
+\item 
+cv::Mat \hyperlink{class_frame_r_g_b_d_a198aed26e98378616a1aee67f1e32182}{intensityImage}
+\item 
+dgc::gicp::GICPPointSet \hyperlink{class_frame_r_g_b_d_aeadd4cb8c9658d6b995ce72d9bef200d}{gicpPointSet}
+\item 
+\hypertarget{class_frame_r_g_b_d_a76abacf5326b11709d9f90a9dcd09817}{
+uint64\_\-t {\bfseries timeStamp}}
+\label{class_frame_r_g_b_d_a76abacf5326b11709d9f90a9dcd09817}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The class \hyperlink{class_frame_r_g_b_d}{FrameRGBD} encapsulates the RGB and 3D data of a certain frame. It contains the intensity image provided by the RGB camera, the 3D coloured point cloud reconstructed from the depth and RGB images. It also contains a downsampled version of the 3D point cloud. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_frame_r_g_b_d_ac3f882e82c847c18e817c988f1f47e6f}{
+\index{FrameRGBD@{FrameRGBD}!computeGICPNormalMatrices@{computeGICPNormalMatrices}}
+\index{computeGICPNormalMatrices@{computeGICPNormalMatrices}!FrameRGBD@{FrameRGBD}}
+\subsubsection[{computeGICPNormalMatrices}]{\setlength{\rightskip}{0pt plus 5cm}void FrameRGBD::computeGICPNormalMatrices (
+\begin{DoxyParamCaption}
+\item[{const double}]{ = {\ttfamily 1e-\/3}}
+\end{DoxyParamCaption}
+)}}
+\label{class_frame_r_g_b_d_ac3f882e82c847c18e817c988f1f47e6f}
+Compute the point cloud normals and covariance matrices for GICP 
+
+\subsection{Field Documentation}
+\hypertarget{class_frame_r_g_b_d_a7c5a9dcf60d9ee1ac6d4d707257e965f}{
+\index{FrameRGBD@{FrameRGBD}!downsampledPointCloudPtr@{downsampledPointCloudPtr}}
+\index{downsampledPointCloudPtr@{downsampledPointCloudPtr}!FrameRGBD@{FrameRGBD}}
+\subsubsection[{downsampledPointCloudPtr}]{\setlength{\rightskip}{0pt plus 5cm}pcl::PointCloud$<$pcl::PointXYZRGB$>$::Ptr {\bf FrameRGBD::downsampledPointCloudPtr}}}
+\label{class_frame_r_g_b_d_a7c5a9dcf60d9ee1ac6d4d707257e965f}
+Pointer to the downsampled version of the point cloud \hypertarget{class_frame_r_g_b_d_aeadd4cb8c9658d6b995ce72d9bef200d}{
+\index{FrameRGBD@{FrameRGBD}!gicpPointSet@{gicpPointSet}}
+\index{gicpPointSet@{gicpPointSet}!FrameRGBD@{FrameRGBD}}
+\subsubsection[{gicpPointSet}]{\setlength{\rightskip}{0pt plus 5cm}dgc::gicp::GICPPointSet {\bf FrameRGBD::gicpPointSet}}}
+\label{class_frame_r_g_b_d_aeadd4cb8c9658d6b995ce72d9bef200d}
+Downsampled point cloud with normals for the GICP algorithm \hypertarget{class_frame_r_g_b_d_a198aed26e98378616a1aee67f1e32182}{
+\index{FrameRGBD@{FrameRGBD}!intensityImage@{intensityImage}}
+\index{intensityImage@{intensityImage}!FrameRGBD@{FrameRGBD}}
+\subsubsection[{intensityImage}]{\setlength{\rightskip}{0pt plus 5cm}cv::Mat {\bf FrameRGBD::intensityImage}}}
+\label{class_frame_r_g_b_d_a198aed26e98378616a1aee67f1e32182}
+Grayscale intensity image \hypertarget{class_frame_r_g_b_d_a03899f04e6597201e13fb2e046fd0983}{
+\index{FrameRGBD@{FrameRGBD}!pointCloudPtr@{pointCloudPtr}}
+\index{pointCloudPtr@{pointCloudPtr}!FrameRGBD@{FrameRGBD}}
+\subsubsection[{pointCloudPtr}]{\setlength{\rightskip}{0pt plus 5cm}pcl::PointCloud$<$pcl::PointXYZRGB$>$::Ptr {\bf FrameRGBD::pointCloudPtr}}}
+\label{class_frame_r_g_b_d_a03899f04e6597201e13fb2e046fd0983}
+Pointer to the coloured 3D point cloud 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+FrameRGBD.h\end{DoxyCompactItemize}

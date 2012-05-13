@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 37
+Makefile.depend
+*.o
+*.a
+*~
+test_gicp
+
+END

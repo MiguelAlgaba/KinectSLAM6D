@@ -1,0 +1,172 @@
+\hypertarget{class_visual_feature_matcher___generic}{
+\section{VisualFeatureMatcher\_\-Generic Class Reference}
+\label{class_visual_feature_matcher___generic}\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}}
+}
+
+
+{\ttfamily \#include $<$VisualFeatureMatcher\_\-Generic.h$>$}
+
+Inheritance diagram for VisualFeatureMatcher\_\-Generic:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_visual_feature_matcher___generic}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_visual_feature_matcher___generic_afb3206845d3f219b2da647b4224e5785}{VisualFeatureMatcher\_\-Generic} (cv::Ptr$<$ cv::DescriptorMatcher $>$ matcher, const std::string \&matchingAlgorithm)
+\item 
+void \hyperlink{class_visual_feature_matcher___generic_a4dd886147652cc05b8ae1b77f41c50dd}{crossCheckMatching} (const cv::Mat \&descriptors1, const cv::Mat \&descriptors2, std::vector$<$ cv::DMatch $>$ \&matches)
+\item 
+void \hyperlink{class_visual_feature_matcher___generic_a78cfb12bdfc7c9c3e8e1191630713a4f}{simpleMatching} (const cv::Mat \&descriptors1, const cv::Mat \&descriptors2, std::vector$<$ cv::DMatch $>$ \&matches)
+\item 
+void \hyperlink{class_visual_feature_matcher___generic_a8c45652a033f333938f5440486cd6fa9}{match} (const cv::Mat \&descriptors1, const cv::Mat \&descriptors2, std::vector$<$ cv::DMatch $>$ \&matches)
+\item 
+int \hyperlink{class_visual_feature_matcher___generic_a6f1654953bbd83f954bdbe1ed711fced}{outlierRemovalHomography} (const std::vector$<$ cv::KeyPoint $>$ \&keypoints1, const std::vector$<$ cv::KeyPoint $>$ \&keypoints2, const std::vector$<$ cv::DMatch $>$ \&matches, std::vector$<$ char $>$ \&matchesMask, const double ransacInlierDistance=3.0)
+\item 
+int \hyperlink{class_visual_feature_matcher___generic_a5fe8fbffca8ad33423eea2af12d34273}{outlierRemovalFundamentalMat} (const std::vector$<$ cv::KeyPoint $>$ \&keypoints1, const std::vector$<$ cv::KeyPoint $>$ \&keypoints2, const std::vector$<$ cv::DMatch $>$ \&matches, std::vector$<$ char $>$ \&matchesMask, const double ransacInlierDistance=3.0)
+\item 
+void \hyperlink{class_visual_feature_matcher___generic_a0adf4907dc8492986a013e2f7ba0931d}{get2DMatchedPoints} (const std::vector$<$ cv::KeyPoint $>$ \&keypoints1, const std::vector$<$ cv::KeyPoint $>$ \&keypoints2, const std::vector$<$ cv::DMatch $>$ \&matches, std::vector$<$ cv::Point2f $>$ \&points1, std::vector$<$ cv::Point2f $>$ \&points2, const int numberInliers, const std::vector$<$ char $>$ \&matchesMask)
+\item 
+void \hyperlink{class_visual_feature_matcher___generic_af473e2359dece0aaf1a5a31c357cfaac}{get2DMatchedPoints} (const std::vector$<$ cv::KeyPoint $>$ \&keypoints1, const std::vector$<$ cv::KeyPoint $>$ \&keypoints2, const std::vector$<$ cv::DMatch $>$ \&matches, std::vector$<$ cv::Point2f $>$ \&points1, std::vector$<$ cv::Point2f $>$ \&points2)
+\end{DoxyCompactItemize}
+\subsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ {\bfseries NONE\_\-FILTER} =  0, 
+{\bfseries CROSS\_\-CHECK\_\-FILTER} =  1
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_visual_feature_matcher___generic_af342f1e9d8e90dfcb7ad3f3fea7133cf}{
+cv::Ptr$<$ cv::DescriptorMatcher $>$ {\bfseries descriptorMatcher}}
+\label{class_visual_feature_matcher___generic_af342f1e9d8e90dfcb7ad3f3fea7133cf}
+
+\item 
+\hypertarget{class_visual_feature_matcher___generic_a00f0156439c360533af21f05226f4fd4}{
+int {\bfseries matcherFilterType}}
+\label{class_visual_feature_matcher___generic_a00f0156439c360533af21f05226f4fd4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class encapsulates the functionality of a generic 2D feature descriptor matcher using the OpenCV library. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_visual_feature_matcher___generic_afb3206845d3f219b2da647b4224e5785}{
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}}
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!VisualFeatureMatcher_Generic@{VisualFeatureMatcher\_\-Generic}}
+\subsubsection[{VisualFeatureMatcher\_\-Generic}]{\setlength{\rightskip}{0pt plus 5cm}VisualFeatureMatcher\_\-Generic::VisualFeatureMatcher\_\-Generic (
+\begin{DoxyParamCaption}
+\item[{cv::Ptr$<$ cv::DescriptorMatcher $>$}]{matcher, }
+\item[{const std::string \&}]{matchingAlgorithm}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual_feature_matcher___generic_afb3206845d3f219b2da647b4224e5785}
+Creates an instance of \hyperlink{class_visual_feature_matcher___generic}{VisualFeatureMatcher\_\-Generic} given a descriptor matcher a std::string that specifies the matching algorithm.
+\begin{DoxyItemize}
+\item \char`\"{}NoneFilter\char`\"{}: Computes the nearest descriptors of descriptors1 in descriptors2 and returns the vector of matches.
+\item \char`\"{}CrossCheckFilter\char`\"{}: Computes the nearest descriptors of descriptors1 in descriptors2 (forward matching). Then it computes the nearest descriptors of descriptors2 in descriptors1 (backward matching). It then retains the matches that appears in both forward and backward matching. 
+\end{DoxyItemize}
+
+\subsection{Member Function Documentation}
+\hypertarget{class_visual_feature_matcher___generic_a4dd886147652cc05b8ae1b77f41c50dd}{
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!crossCheckMatching@{crossCheckMatching}}
+\index{crossCheckMatching@{crossCheckMatching}!VisualFeatureMatcher_Generic@{VisualFeatureMatcher\_\-Generic}}
+\subsubsection[{crossCheckMatching}]{\setlength{\rightskip}{0pt plus 5cm}void VisualFeatureMatcher\_\-Generic::crossCheckMatching (
+\begin{DoxyParamCaption}
+\item[{const cv::Mat \&}]{descriptors1, }
+\item[{const cv::Mat \&}]{descriptors2, }
+\item[{std::vector$<$ cv::DMatch $>$ \&}]{matches}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual_feature_matcher___generic_a4dd886147652cc05b8ae1b77f41c50dd}
+Performs descriptor matching using the Cross Check Filter algorithm. Computes the nearest descriptors of descriptors1 in descriptors2 (forward matching). Then it computes the nearest descriptors of descriptors2 in descriptors1 (backward matching). It then retains the matches that appears in both forward and backward matching. \hypertarget{class_visual_feature_matcher___generic_af473e2359dece0aaf1a5a31c357cfaac}{
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!get2DMatchedPoints@{get2DMatchedPoints}}
+\index{get2DMatchedPoints@{get2DMatchedPoints}!VisualFeatureMatcher_Generic@{VisualFeatureMatcher\_\-Generic}}
+\subsubsection[{get2DMatchedPoints}]{\setlength{\rightskip}{0pt plus 5cm}void VisualFeatureMatcher\_\-Generic::get2DMatchedPoints (
+\begin{DoxyParamCaption}
+\item[{const std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints1, }
+\item[{const std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints2, }
+\item[{const std::vector$<$ cv::DMatch $>$ \&}]{matches, }
+\item[{std::vector$<$ cv::Point2f $>$ \&}]{points1, }
+\item[{std::vector$<$ cv::Point2f $>$ \&}]{points2}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual_feature_matcher___generic_af473e2359dece0aaf1a5a31c357cfaac}
+This method takes the keypoints and matches to obtain two vectors of 2D points with the pairs of 2D correspondences of each match. \hypertarget{class_visual_feature_matcher___generic_a0adf4907dc8492986a013e2f7ba0931d}{
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!get2DMatchedPoints@{get2DMatchedPoints}}
+\index{get2DMatchedPoints@{get2DMatchedPoints}!VisualFeatureMatcher_Generic@{VisualFeatureMatcher\_\-Generic}}
+\subsubsection[{get2DMatchedPoints}]{\setlength{\rightskip}{0pt plus 5cm}void VisualFeatureMatcher\_\-Generic::get2DMatchedPoints (
+\begin{DoxyParamCaption}
+\item[{const std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints1, }
+\item[{const std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints2, }
+\item[{const std::vector$<$ cv::DMatch $>$ \&}]{matches, }
+\item[{std::vector$<$ cv::Point2f $>$ \&}]{points1, }
+\item[{std::vector$<$ cv::Point2f $>$ \&}]{points2, }
+\item[{const int}]{numberInliers, }
+\item[{const std::vector$<$ char $>$ \&}]{matchesMask}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual_feature_matcher___generic_a0adf4907dc8492986a013e2f7ba0931d}
+This method takes the keypoints, matches and matchesMask to obtain two vectors of 2D points with the pairs of 2D correspondences of each match. \hypertarget{class_visual_feature_matcher___generic_a8c45652a033f333938f5440486cd6fa9}{
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!match@{match}}
+\index{match@{match}!VisualFeatureMatcher_Generic@{VisualFeatureMatcher\_\-Generic}}
+\subsubsection[{match}]{\setlength{\rightskip}{0pt plus 5cm}void VisualFeatureMatcher\_\-Generic::match (
+\begin{DoxyParamCaption}
+\item[{const cv::Mat \&}]{descriptors1, }
+\item[{const cv::Mat \&}]{descriptors2, }
+\item[{std::vector$<$ cv::DMatch $>$ \&}]{matches}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_visual_feature_matcher___generic_a8c45652a033f333938f5440486cd6fa9}
+Performs descriptor matching. Computes simpleMatching or crossCheckMatching depending on the name of the algorithm specified when creating the instance of \hyperlink{class_visual_feature_matcher___generic}{VisualFeatureMatcher\_\-Generic}. 
+
+Implements \hyperlink{class_visual_feature_matcher_a4e70d34d256b19bf4a1dbc1ee14c0e91}{VisualFeatureMatcher}.
+
+\hypertarget{class_visual_feature_matcher___generic_a5fe8fbffca8ad33423eea2af12d34273}{
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!outlierRemovalFundamentalMat@{outlierRemovalFundamentalMat}}
+\index{outlierRemovalFundamentalMat@{outlierRemovalFundamentalMat}!VisualFeatureMatcher_Generic@{VisualFeatureMatcher\_\-Generic}}
+\subsubsection[{outlierRemovalFundamentalMat}]{\setlength{\rightskip}{0pt plus 5cm}int VisualFeatureMatcher\_\-Generic::outlierRemovalFundamentalMat (
+\begin{DoxyParamCaption}
+\item[{const std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints1, }
+\item[{const std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints2, }
+\item[{const std::vector$<$ cv::DMatch $>$ \&}]{matches, }
+\item[{std::vector$<$ char $>$ \&}]{matchesMask, }
+\item[{const double}]{ransacInlierDistance = {\ttfamily 3.0}}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual_feature_matcher___generic_a5fe8fbffca8ad33423eea2af12d34273}
+Performs outlier rejection with the fundamental matrix. This method computes the fundamental matrix that best fits the 2D matches using RANSAC and then rejects the 2D correspondences that doesn't fit the model to get robust 2D correspondences. This method returns the resulting number of inliers. \hypertarget{class_visual_feature_matcher___generic_a6f1654953bbd83f954bdbe1ed711fced}{
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!outlierRemovalHomography@{outlierRemovalHomography}}
+\index{outlierRemovalHomography@{outlierRemovalHomography}!VisualFeatureMatcher_Generic@{VisualFeatureMatcher\_\-Generic}}
+\subsubsection[{outlierRemovalHomography}]{\setlength{\rightskip}{0pt plus 5cm}int VisualFeatureMatcher\_\-Generic::outlierRemovalHomography (
+\begin{DoxyParamCaption}
+\item[{const std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints1, }
+\item[{const std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints2, }
+\item[{const std::vector$<$ cv::DMatch $>$ \&}]{matches, }
+\item[{std::vector$<$ char $>$ \&}]{matchesMask, }
+\item[{const double}]{ransacInlierDistance = {\ttfamily 3.0}}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual_feature_matcher___generic_a6f1654953bbd83f954bdbe1ed711fced}
+Performs outlier rejection with the homography matrix. This method computes the homography matrix that best fits the 2D matches using RANSAC and then rejects the 2D correspondences that doesn't fit the model to get robust 2D correspondences. This method returns the resulting number of inliers. \hypertarget{class_visual_feature_matcher___generic_a78cfb12bdfc7c9c3e8e1191630713a4f}{
+\index{VisualFeatureMatcher\_\-Generic@{VisualFeatureMatcher\_\-Generic}!simpleMatching@{simpleMatching}}
+\index{simpleMatching@{simpleMatching}!VisualFeatureMatcher_Generic@{VisualFeatureMatcher\_\-Generic}}
+\subsubsection[{simpleMatching}]{\setlength{\rightskip}{0pt plus 5cm}void VisualFeatureMatcher\_\-Generic::simpleMatching (
+\begin{DoxyParamCaption}
+\item[{const cv::Mat \&}]{descriptors1, }
+\item[{const cv::Mat \&}]{descriptors2, }
+\item[{std::vector$<$ cv::DMatch $>$ \&}]{matches}
+\end{DoxyParamCaption}
+)}}
+\label{class_visual_feature_matcher___generic_a78cfb12bdfc7c9c3e8e1191630713a4f}
+Performs descriptor matching. Computes the nearest descriptors of descriptors1 in descriptors2 and returns a vector of matches. 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+VisualFeatureMatcher\_\-Generic.h\end{DoxyCompactItemize}

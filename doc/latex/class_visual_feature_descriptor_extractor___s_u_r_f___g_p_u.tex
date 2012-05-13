@@ -1,0 +1,73 @@
+\hypertarget{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u}{
+\section{VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU Class Reference}
+\label{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u}\index{VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU@{VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU}}
+}
+
+
+{\ttfamily \#include $<$VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU.h$>$}
+
+Inheritance diagram for VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_aef7ddf1d1e42267ba7b5d06a0a36e58f}{detectKeypointsAndComputeDescriptors} (std::vector$<$ cv::KeyPoint $>$ \&keypoints, cv::Mat \&descriptors, std::vector$<$ float $>$ \&descriptors\_\-aux)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_a6c5740d8a8de3d2010a02c524bf54bd7}{
+cv::gpu::SURF\_\-GPU {\bfseries surf}}
+\label{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_a6c5740d8a8de3d2010a02c524bf54bd7}
+
+\item 
+\hypertarget{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_a5fbe8308ae8cb7c0e2743dcbd7ac9291}{
+std::vector$<$ float $>$ {\bfseries descriptors\_\-aux}}
+\label{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_a5fbe8308ae8cb7c0e2743dcbd7ac9291}
+
+\item 
+\hypertarget{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_ab18da50bfdc5aa8a233937fcfe5eedc1}{
+cv::gpu::GpuMat {\bfseries imgMatGPU}}
+\label{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_ab18da50bfdc5aa8a233937fcfe5eedc1}
+
+\item 
+\hypertarget{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_a550538d586f31def7935183111acb19b}{
+cv::gpu::GpuMat {\bfseries keypointsGPU}}
+\label{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_a550538d586f31def7935183111acb19b}
+
+\item 
+\hypertarget{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_a2410bf2aa3e2330e4ae7d141ff8179d6}{
+cv::gpu::GpuMat {\bfseries descriptorsGPU}}
+\label{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_a2410bf2aa3e2330e4ae7d141ff8179d6}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class encapsulates the functionality of a SURF 2D visual feature detector and descriptor extractor using the OpenCV library and CUDA. This class integrates a GPU accelerated implementation of SURF. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_aef7ddf1d1e42267ba7b5d06a0a36e58f}{
+\index{VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU@{VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU}!detectKeypointsAndComputeDescriptors@{detectKeypointsAndComputeDescriptors}}
+\index{detectKeypointsAndComputeDescriptors@{detectKeypointsAndComputeDescriptors}!VisualFeatureDescriptorExtractor_SURF_GPU@{VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU}}
+\subsubsection[{detectKeypointsAndComputeDescriptors}]{\setlength{\rightskip}{0pt plus 5cm}void VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU::detectKeypointsAndComputeDescriptors (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ cv::KeyPoint $>$ \&}]{keypoints, }
+\item[{cv::Mat \&}]{descriptors, }
+\item[{std::vector$<$ float $>$ \&}]{descriptors\_\-aux}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_visual_feature_descriptor_extractor___s_u_r_f___g_p_u_aef7ddf1d1e42267ba7b5d06a0a36e58f}
+Performs SURF feature detection and descriptor extraction over the image provided by the method setInputImage. 
+
+Implements \hyperlink{class_visual_feature_descriptor_extractor_aac4d313540ff83e03fb5b0a0952fc0f4}{VisualFeatureDescriptorExtractor}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+VisualFeatureDescriptorExtractor\_\-SURF\_\-GPU.h\end{DoxyCompactItemize}

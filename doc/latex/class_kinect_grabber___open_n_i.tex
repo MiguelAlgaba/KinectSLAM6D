@@ -1,0 +1,155 @@
+\hypertarget{class_kinect_grabber___open_n_i}{
+\section{KinectGrabber\_\-OpenNI Class Reference}
+\label{class_kinect_grabber___open_n_i}\index{KinectGrabber\_\-OpenNI@{KinectGrabber\_\-OpenNI}}
+}
+
+
+{\ttfamily \#include $<$KinectGrabber\_\-OpenNI.h$>$}
+
+Inheritance diagram for KinectGrabber\_\-OpenNI:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_kinect_grabber___open_n_i}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_kinect_grabber___open_n_i_a49fcf8f7d6160a72cae3a8c69663412d}{getCurrentColouredPointCloudPtr} (pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&colouredPointCloudPtr)
+\item 
+void \hyperlink{class_kinect_grabber___open_n_i_a6f3449aae89913eaa1ce2f1d82f2e80c}{filterPointCloud} (pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&colouredPointCloudPtr, pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&downsampledPointCloudPtr)
+\item 
+void \hyperlink{class_kinect_grabber___open_n_i_ab06b4b2825042c47facb5a10697b114e}{getCurrentIntensityImage} (cv::Mat \&intensityImage)
+\item 
+void \hyperlink{class_kinect_grabber___open_n_i_a75b04004b7cfa8a061fbadae7825ade4}{grab} ()
+\item 
+void \hyperlink{class_kinect_grabber___open_n_i_a5618f02db9a2b8e514bdee738c472ba3}{stopGrabber} ()
+\item 
+void \hyperlink{class_kinect_grabber___open_n_i_ac85fcc37d21dcd74066af85bf055d66b}{getCurrentFrameRGBD} (\hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_kinect_grabber___open_n_i_a8ea8eb028145dab226c19ddaa0e154d4}{
+void {\bfseries cloud\_\-cb\_\-} (const pcl::PointCloud$<$ pcl::PointXYZRGB $>$::ConstPtr \&cloud)}
+\label{class_kinect_grabber___open_n_i_a8ea8eb028145dab226c19ddaa0e154d4}
+
+\item 
+\hypertarget{class_kinect_grabber___open_n_i_a13c87e25b183ff1d6d891fe771730ec5}{
+void {\bfseries image\_\-cb\_\-} (const boost::shared\_\-ptr$<$ openni\_\-wrapper::Image $>$ \&img)}
+\label{class_kinect_grabber___open_n_i_a13c87e25b183ff1d6d891fe771730ec5}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_kinect_grabber___open_n_i_af9f188dc0939ceae194e99aec12a9e7b}{
+cv::Mat {\bfseries currentRGBImg}}
+\label{class_kinect_grabber___open_n_i_af9f188dc0939ceae194e99aec12a9e7b}
+
+\item 
+\hypertarget{class_kinect_grabber___open_n_i_a758bee0be65ad86d8f7c24d9fbb68cff}{
+cv::Mat {\bfseries currentBGRImg}}
+\label{class_kinect_grabber___open_n_i_a758bee0be65ad86d8f7c24d9fbb68cff}
+
+\item 
+\hypertarget{class_kinect_grabber___open_n_i_abaf74fe8bba94fab483e8b49745814dc}{
+pcl::PointCloud$<$ pcl::PointXYZRGB $>$::ConstPtr {\bfseries pointCloudPtr\_\-aux}}
+\label{class_kinect_grabber___open_n_i_abaf74fe8bba94fab483e8b49745814dc}
+
+\item 
+\hypertarget{class_kinect_grabber___open_n_i_a3a1075350645cea736211c6c34c136c8}{
+pcl::OpenNIGrabber $\ast$ {\bfseries interface}}
+\label{class_kinect_grabber___open_n_i_a3a1075350645cea736211c6c34c136c8}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class captures RGBD frames from the Kinect sensor using the OpenNI interface provided by the PCL library to access the sensor data. It grabs the intensity image as well as its corresponding 3D point cloud. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_kinect_grabber___open_n_i_a6f3449aae89913eaa1ce2f1d82f2e80c}{
+\index{KinectGrabber\_\-OpenNI@{KinectGrabber\_\-OpenNI}!filterPointCloud@{filterPointCloud}}
+\index{filterPointCloud@{filterPointCloud}!KinectGrabber_OpenNI@{KinectGrabber\_\-OpenNI}}
+\subsubsection[{filterPointCloud}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-OpenNI::filterPointCloud (
+\begin{DoxyParamCaption}
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{colouredPointCloudPtr, }
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{downsampledPointCloudPtr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___open_n_i_a6f3449aae89913eaa1ce2f1d82f2e80c}
+Returns a downsampled version of the provided 3D point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a3faafcbdbb136dd2c6b51d51eed9e147}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___open_n_i_a49fcf8f7d6160a72cae3a8c69663412d}{
+\index{KinectGrabber\_\-OpenNI@{KinectGrabber\_\-OpenNI}!getCurrentColouredPointCloudPtr@{getCurrentColouredPointCloudPtr}}
+\index{getCurrentColouredPointCloudPtr@{getCurrentColouredPointCloudPtr}!KinectGrabber_OpenNI@{KinectGrabber\_\-OpenNI}}
+\subsubsection[{getCurrentColouredPointCloudPtr}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-OpenNI::getCurrentColouredPointCloudPtr (
+\begin{DoxyParamCaption}
+\item[{pcl::PointCloud$<$ pcl::PointXYZRGB $>$::Ptr \&}]{colouredPointCloudPtr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___open_n_i_a49fcf8f7d6160a72cae3a8c69663412d}
+Returns the current 3D coloured point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a053e560dfd15e6123d19e4aa20b19585}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___open_n_i_ac85fcc37d21dcd74066af85bf055d66b}{
+\index{KinectGrabber\_\-OpenNI@{KinectGrabber\_\-OpenNI}!getCurrentFrameRGBD@{getCurrentFrameRGBD}}
+\index{getCurrentFrameRGBD@{getCurrentFrameRGBD}!KinectGrabber_OpenNI@{KinectGrabber\_\-OpenNI}}
+\subsubsection[{getCurrentFrameRGBD}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-OpenNI::getCurrentFrameRGBD (
+\begin{DoxyParamCaption}
+\item[{{\bf FrameRGBD} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___open_n_i_ac85fcc37d21dcd74066af85bf055d66b}
+Returns a RGBD frame containing the intensity image and 3D point cloud. It also computes a downsampled version of the 3D point cloud and adds it to the returned RGBD frame. 
+
+Implements \hyperlink{class_kinect_grabber_abca25bbc3ddc8bc99dc1c84df48ae9f2}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___open_n_i_ab06b4b2825042c47facb5a10697b114e}{
+\index{KinectGrabber\_\-OpenNI@{KinectGrabber\_\-OpenNI}!getCurrentIntensityImage@{getCurrentIntensityImage}}
+\index{getCurrentIntensityImage@{getCurrentIntensityImage}!KinectGrabber_OpenNI@{KinectGrabber\_\-OpenNI}}
+\subsubsection[{getCurrentIntensityImage}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-OpenNI::getCurrentIntensityImage (
+\begin{DoxyParamCaption}
+\item[{cv::Mat \&}]{intensityImage}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___open_n_i_ab06b4b2825042c47facb5a10697b114e}
+Returns the current intensity image provided by the RGB camera. 
+
+Implements \hyperlink{class_kinect_grabber_a47a54afb0a188cdd02f3cf79d503b3dd}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___open_n_i_a75b04004b7cfa8a061fbadae7825ade4}{
+\index{KinectGrabber\_\-OpenNI@{KinectGrabber\_\-OpenNI}!grab@{grab}}
+\index{grab@{grab}!KinectGrabber_OpenNI@{KinectGrabber\_\-OpenNI}}
+\subsubsection[{grab}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-OpenNI::grab (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___open_n_i_a75b04004b7cfa8a061fbadae7825ade4}
+Retains the current intensity image and its corresponding 3D point cloud. 
+
+Implements \hyperlink{class_kinect_grabber_a0274f336f9aee07bca08bd673cf9377a}{KinectGrabber}.
+
+\hypertarget{class_kinect_grabber___open_n_i_a5618f02db9a2b8e514bdee738c472ba3}{
+\index{KinectGrabber\_\-OpenNI@{KinectGrabber\_\-OpenNI}!stopGrabber@{stopGrabber}}
+\index{stopGrabber@{stopGrabber}!KinectGrabber_OpenNI@{KinectGrabber\_\-OpenNI}}
+\subsubsection[{stopGrabber}]{\setlength{\rightskip}{0pt plus 5cm}void KinectGrabber\_\-OpenNI::stopGrabber (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{class_kinect_grabber___open_n_i_a5618f02db9a2b8e514bdee738c472ba3}
+Stop grabing RGBD frames. 
+
+Implements \hyperlink{class_kinect_grabber_af7d0fcdc2f85f84cb38469095882d688}{KinectGrabber}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+KinectGrabber\_\-OpenNI.h\end{DoxyCompactItemize}

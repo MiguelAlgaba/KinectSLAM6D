@@ -1,0 +1,45 @@
+\hypertarget{class_i_c_p_pose_refiner}{
+\section{ICPPoseRefiner Class Reference}
+\label{class_i_c_p_pose_refiner}\index{ICPPoseRefiner@{ICPPoseRefiner}}
+}
+
+
+{\ttfamily \#include $<$ICPPoseRefiner.h$>$}
+
+Inheritance diagram for ICPPoseRefiner:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_i_c_p_pose_refiner}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_i_c_p_pose_refiner_ad359ab15346aa343a51bd8ae71cd3ea1}{refinePose} (\hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&frame1, \hyperlink{class_frame_r_g_b_d}{FrameRGBD} \&frame2, Eigen::Matrix4f \&H)=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract class that defines a method to refine the rigid transformation between two RGBD frames using an ICP approach. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_i_c_p_pose_refiner_ad359ab15346aa343a51bd8ae71cd3ea1}{
+\index{ICPPoseRefiner@{ICPPoseRefiner}!refinePose@{refinePose}}
+\index{refinePose@{refinePose}!ICPPoseRefiner@{ICPPoseRefiner}}
+\subsubsection[{refinePose}]{\setlength{\rightskip}{0pt plus 5cm}virtual void ICPPoseRefiner::refinePose (
+\begin{DoxyParamCaption}
+\item[{{\bf FrameRGBD} \&}]{frame1, }
+\item[{{\bf FrameRGBD} \&}]{frame2, }
+\item[{Eigen::Matrix4f \&}]{H}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_i_c_p_pose_refiner_ad359ab15346aa343a51bd8ae71cd3ea1}
+This method refines the 3D rigid transformation between frame1 and frame2 giving H as an initial guess. The refined rigid transformation will be returned in H. 
+
+Implemented in \hyperlink{class_i_c_p_pose_refiner___p_c_l_a0efdc4657c30bf0a171b0a012f4f0d8d}{ICPPoseRefiner\_\-PCL}, and \hyperlink{class_i_c_p_pose_refiner___stanford_g_i_c_p_a943bad0b2578cf87723ce968e8c52580}{ICPPoseRefiner\_\-StanfordGICP}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+ICPPoseRefiner.h\end{DoxyCompactItemize}
